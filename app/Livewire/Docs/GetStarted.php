@@ -11,9 +11,10 @@ class GetStarted extends Component
         'PHP 8.1+'        => 'https://www.php.net',
         'Composer'        => 'https://getcomposer.org',
         'Laravel 10.x'    => 'https://laravel.com',
-        'Livewire 3.0+'   => 'https://laravel-livewire.com',
+        'Livewire 3.x'    => 'https://laravel-livewire.com',
         'Alpine.js 3.x'   => 'https://alpinejs.dev',
         'Tailwindcss 3.x' => 'https://tailwindcss.com',
+        'DaisyUI 3.x'     => 'https://daisyui.com',
     ];
 
     public function render(): View
