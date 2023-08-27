@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef0c748d53d473590b34baabc5041f46",
+    "content-hash": "a90f1b80661491aa5176347f243e35f7",
     "packages": [
         {
             "name": "brick/math",
@@ -3168,6 +3168,154 @@
             "time": "2023-04-15T23:01:58+00:00"
         },
         {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.16.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-23T09:04:39+00:00"
+        },
+        {
+            "name": "step2dev/lazy-ui",
+            "version": "v1.0.0beta.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/step2dev/lazy-ui.git",
+                "reference": "5c593f825876f36c05dbbf791a1340cd7ef41a47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/step2dev/lazy-ui/zipball/5c593f825876f36c05dbbf791a1340cd7ef41a47",
+                "reference": "5c593f825876f36c05dbbf791a1340cd7ef41a47",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^v10.17.1",
+                "livewire/livewire": "^3.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Step2dev\\LazyUI\\LazyUiServiceProvider"
+                    ],
+                    "aliases": {
+                        "LazyComponent": "Step2dev\\LazyUI\\Facades\\LazyComponent"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Step2dev\\LazyUI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CrazyBoy49z",
+                    "email": "yura.finiv@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lazy UI is a Laravel package that provides a set of Blade components to rapidly build forms with Tailwind CSS and Daisy UI.",
+            "homepage": "https://github.com/step2dev/lazy-ui",
+            "keywords": [
+                "component",
+                "components",
+                "daisy ui",
+                "design-system",
+                "framework",
+                "laravel",
+                "lazy component ui",
+                "lazy form",
+                "lazy ui",
+                "tailwind",
+                "tailwindcss",
+                "ui-library"
+            ],
+            "support": {
+                "issues": "https://github.com/step2dev/lazy-ui/issues",
+                "source": "https://github.com/step2dev/lazy-ui/tree/v1.0.0beta.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/Step2dev",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-26T02:22:32+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v6.3.4",
             "source": {
@@ -5467,6 +5615,71 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "torchlight/torchlight-laravel",
+            "version": "v0.5.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/torchlight-api/torchlight-laravel.git",
+                "reference": "6a47c9dfdc5dc11ce0ef0672337119026189326d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/torchlight-api/torchlight-laravel/zipball/6a47c9dfdc5dc11ce0ef0672337119026189326d",
+                "reference": "6a47c9dfdc5dc11ce0ef0672337119026189326d",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.2",
+                "illuminate/cache": "^8.0|^9.0|^10.0",
+                "illuminate/console": "^8.0|^9.0|^10.0",
+                "illuminate/http": "^8.0|^9.0|^10.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "illuminate/view": "^8.0|^9.0|^10.0",
+                "php": "^7.3|^8.0",
+                "ramsey/uuid": "^3.7|^4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench": "^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^8.5.23|^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Torchlight\\TorchlightServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Torchlight\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Francis",
+                    "email": "aaron@hammerstone.dev"
+                }
+            ],
+            "description": "A Laravel Client for Torchlight, the syntax highlighting API.",
+            "homepage": "https://torchlight.dev",
+            "keywords": [
+                "Code highlighting",
+                "laravel",
+                "syntax highlighting"
+            ],
+            "support": {
+                "issues": "https://github.com/torchlight-api/torchlight-laravel/issues",
+                "source": "https://github.com/torchlight-api/torchlight-laravel/tree/v0.5.14"
+            },
+            "time": "2023-08-18T21:14:06+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -8119,7 +8332,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
