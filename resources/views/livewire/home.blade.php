@@ -13,4 +13,3 @@
         </x-lazy-tooltip>
     </div>
 </div>
-gkt
