@@ -20,6 +20,7 @@ class CodePreview extends LazyComponent
             $attributes = $this->getAttributesFromData($data);
             $title = $attributes->get('title');
             $attributes['id'] ??= str()->slug($title);
+            $attributes['href'] ??= '#'.$attributes['id'];
             $code = $attributes->get('code', (string) $data['slot']);
             $code = html_entity_decode($code);
             $preview = Blade::render($code, deleteCachedView: true);

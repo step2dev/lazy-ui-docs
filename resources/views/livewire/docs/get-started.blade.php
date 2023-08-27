@@ -1,11 +1,4 @@
 <div>
-    <x-code language="sh">
-        npm install theme-change
-    npm install -D sass tailwindcss postcss autoprefixer
-    npx tailwindcss init -p
-    </x-code>
-
-
     Requirements
     <ul>
         @foreach ($this::REQUIREMENTS as $label => $href)
@@ -15,6 +8,11 @@
             </li>
         @endforeach
     </ul>
+    <x-code language="sh">
+        npm install theme-change
+    npm install -D sass tailwindcss postcss autoprefixer
+    npx tailwindcss init -p
+    </x-code>
 
     <x-code-preview title="test">
         &lt;x-lazy-loading /&gt;
