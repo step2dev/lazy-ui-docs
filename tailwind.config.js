@@ -6,6 +6,7 @@ export default {
         './resources/views/**/*.blade.php',
         './app/View/**/*.php',
         '.vendor/step2dev/lazy-ui/**/*.php',
+        '.app/Livewire/**/*.php',
     ],
     theme: {
         extend: {},

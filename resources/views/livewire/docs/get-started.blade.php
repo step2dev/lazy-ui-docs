@@ -1,19 +1,23 @@
 <div>
-    <x
-    npm install theme-change
-
-
-    npm install -D sass
-    npm install -D tailwindcss postcss autoprefixer
+    <x-code language="sh">
+        npm install theme-change
+    npm install -D sass tailwindcss postcss autoprefixer
     npx tailwindcss init -p
+    </x-code>
 
-    ew
+
     Requirements
     <ul>
         @foreach ($this::REQUIREMENTS as $label => $href)
             <li>
-                <x-lazy-link :$href target="_blank" rel="noopener noreferrer" :$label hover primary class="hover:after:content-['_↗']"/>
+                <x-lazy-link :$href target="_blank" rel="noopener noreferrer" :$label hover primary
+                             class="hover:after:content-['_↗']"/>
             </li>
         @endforeach
     </ul>
+
+    <x-code-preview title="test">
+        &lt;x-lazy-loading /&gt;
+    </x-code-preview>
+
 </div>
