@@ -52,6 +52,9 @@
                 <li>
                     <a href="{{ route('docs.loading') }}" wire:navigate>Loading</a>
                 </li>
+                <li>
+                    <a href="{{ route('docs.richtext') }}" wire:navigate>Rich Text</a>
+                </li>
                 <h2 class="menu-title">Data input</h2>
                 <li>
                     <a href="/docs" wire:navigate>

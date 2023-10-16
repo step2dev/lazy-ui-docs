@@ -6,16 +6,20 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.15",
-        "axios": "^1.1.2",
-        "daisyui": "^3.6.3",
-        "laravel-vite-plugin": "^0.8.0",
+        "@tailwindcss/forms": "^0.5.6",
+        "autoprefixer": "^10.4.16",
+        "axios": "^1.5.1",
+        "daisyui": "^3.9.2",
+        "laravel-vite-plugin": "^0.8.1",
         "postcss": "^8.4.31",
-        "sass": "^1.66.1",
+        "sass": "^1.69.3",
         "tailwindcss": "^3.3.3",
-        "vite": "^4.4.9"
+        "vite": "^4.4.11"
     },
     "dependencies": {
+        "alpinejs": "^3.13.1",
+        "quill": "^1.3.7",
+        "sanitize-html": "^2.11.0",
         "theme-change": "^2.5.0"
     }
 }

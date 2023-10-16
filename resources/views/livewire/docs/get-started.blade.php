@@ -9,11 +9,21 @@
         @endforeach
     </ul>
     <x-code language="sh">
-        npm install theme-change
-    npm install -D sass
+        php artisan lazy-ui:install
+    </x-code>
+
+    Add the following to your app.css file:
+    <x-code language="scss">
+        @import "../scss/lazy.scss";
+    </x-code>
+
+    <x-code language="js">
+        import "./lazy.js";
     </x-code>
 
     <x-code language="sh">
+        vite build
+        php artisan optimize:clear
     </x-code>
 
     <x-code-preview title="test">

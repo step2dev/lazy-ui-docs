@@ -29,6 +29,7 @@
 {{ $header }}
 {{ $slot }}
 {{ $footer }}
+@livewireScriptConfig
 @stack('scripts')
 </body>
 </html>
