@@ -12,7 +12,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "step2dev/lazy-ui": "^1.0@beta",
-        "torchlight/torchlight-laravel": "^0.5.14"
+        "torchlight/torchlight-laravel": "^0.6.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
