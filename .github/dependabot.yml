@@ -1,22 +1,39 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
+
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # 🔧 JS пакети (npm, yarn)
+  - package-ecosystem: "npm"
+    directory: "/" # шлях до package.json
     schedule:
       interval: "weekly"
-  - package-ecosystem: composer
-    directory: "/"
+      time: "22:00"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "build(npm)"
+    allow:
+      - dependency-type: "direct"
+
+  # 🧩 PHP пакети (Laravel / Composer)
+  - package-ecosystem: "composer"
+    directory: "/" # шлях до composer.json
     schedule:
-      interval: daily
+      interval: "daily"
       time: "23:30"
     open-pull-requests-limit: 10
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "build(composer)"
+    allow:
+      - dependency-type: "direct"
+
+  # 🤖 GitHub Actions
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/" # шлях до .github/workflows
     schedule:
-      interval: monthly
-    open-pull-requests-limit: 10
+      interval: "monthly"
+      time: "00:30"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "chore(actions)"
