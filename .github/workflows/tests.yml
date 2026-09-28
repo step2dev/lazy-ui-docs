@@ -36,6 +36,9 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      - name: Verify compiled Lazy UI styles
+        run: npm run test:css
+
       - name: Prepare application
         run: |
           cp .env.example .env
