@@ -46,6 +46,7 @@ return [
             'table' => ['name' => 'Table', 'tag' => 'table', 'description' => 'Responsive daisyUI table wrapper.', 'example' => '<x-lazy-table>...</x-lazy-table>'],
             'text-rotate' => ['name' => 'Text Rotate', 'tag' => 'text-rotate', 'description' => 'Rotating text presentation.', 'example' => '<x-lazy-text-rotate :items="[\'Fast\',\'Simple\']" />'],
             'timeline' => ['name' => 'Timeline', 'tag' => 'timeline', 'description' => 'Timeline with timeline items.', 'example' => '<x-lazy-timeline><x-lazy-timeline-item>Release</x-lazy-timeline-item></x-lazy-timeline>'],
+            'timeline-item' => ['name' => 'Timeline Item', 'tag' => 'timeline-item', 'description' => 'Single event or milestone inside a Timeline.', 'example' => '<x-lazy-timeline-item>Release</x-lazy-timeline-item>'],
         ],
         "Navigation" => [
             'breadcrumbs' => ['name' => 'Breadcrumbs', 'tag' => 'breadcrumbs', 'description' => 'Breadcrumb navigation.', 'example' => '<x-lazy-breadcrumbs :items="[[\'label\' => \'Home\', \'href\' => \'/\'], [\'label\' => \'Docs\']]" />'],
