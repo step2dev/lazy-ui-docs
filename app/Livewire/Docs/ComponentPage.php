@@ -463,6 +463,843 @@ BLADE,
 <x-lazy-swap on-label="ON" off-label="OFF" active />
 BLADE,
             ]],
+            'button-group' => [[
+                'title' => 'Button group',
+                'code' => <<<'BLADE'
+<x-lazy-btn-group>
+    <x-lazy-btn>One</x-lazy-btn>
+    <x-lazy-btn>Two</x-lazy-btn>
+    <x-lazy-btn>Three</x-lazy-btn>
+</x-lazy-btn-group>
+BLADE,
+            ]],
+            'button-back' => [[
+                'title' => 'Back button',
+                'code' => <<<'BLADE'
+<x-lazy-btn-back />
+BLADE,
+            ]],
+            'button-delete' => [[
+                'title' => 'Delete button',
+                'code' => <<<'BLADE'
+<x-lazy-btn-delete href="/posts/1" />
+BLADE,
+            ]],
+            'button-logout' => [[
+                'title' => 'Logout button',
+                'code' => <<<'BLADE'
+<x-lazy-btn-logout />
+<x-lazy-btn-logout route="logout" />
+BLADE,
+            ]],
+            'theme-switcher' => [[
+                'title' => 'Theme switcher',
+                'code' => <<<'BLADE'
+<x-lazy-theme-switcher />
+BLADE,
+            ]],
+            'avatar' => [[
+                'title' => 'Avatar states',
+                'code' => <<<'BLADE'
+<div class="flex items-center gap-4">
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?1" alt="User" />
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?2" alt="Online" online-enabled />
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?3" alt="Offline" offline-enabled />
+    <x-lazy-avatar class="w-12 rounded-full bg-neutral text-neutral-content" :src="null" placeholder-enabled>UI</x-lazy-avatar>
+</div>
+BLADE,
+            ]],
+            'avatar-group' => [[
+                'title' => 'Avatar group spacing',
+                'code' => <<<'BLADE'
+<x-lazy-avatar-group spacing="6">
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?11" />
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?12" />
+    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?13" />
+</x-lazy-avatar-group>
+BLADE,
+            ]],
+            'badge' => [[
+                'title' => 'Badge content',
+                'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-2">
+    <x-lazy-badge>Default</x-lazy-badge>
+    <x-lazy-badge label="Label prop" />
+    <x-lazy-badge outline>Outline</x-lazy-badge>
+</div>
+BLADE,
+            ]],
+            'carousel-item' => [[
+                'title' => 'Carousel item',
+                'code' => <<<'BLADE'
+<x-lazy-carousel>
+    <x-lazy-carousel-item class="w-full bg-base-200 p-8">First slide</x-lazy-carousel-item>
+    <x-lazy-carousel-item class="w-full bg-base-300 p-8">Second slide</x-lazy-carousel-item>
+</x-lazy-carousel>
+BLADE,
+            ]],
+            'countdown' => [[
+                'title' => 'Countdown values',
+                'code' => <<<'BLADE'
+<div class="flex gap-6">
+    <x-lazy-countdown :value="59" label="Seconds" />
+    <x-lazy-countdown :value="12" label="Minutes" />
+    <x-lazy-countdown value="7" label="Days" />
+</div>
+BLADE,
+            ]],
+            'diff' => [[
+                'title' => 'Before and after',
+                'code' => <<<'BLADE'
+<x-lazy-diff class="aspect-video">
+    <x-slot:before>
+        <div class="grid h-full place-content-center bg-primary text-primary-content">Before</div>
+    </x-slot:before>
+    <x-slot:after>
+        <div class="grid h-full place-content-center bg-secondary text-secondary-content">After</div>
+    </x-slot:after>
+</x-lazy-diff>
+BLADE,
+            ]],
+            'hover-3d' => [[
+                'title' => 'Hover 3D zones',
+                'code' => <<<'BLADE'
+<x-lazy-hover-3d :zone-count="8" class="card w-64 bg-base-200 p-6 shadow">
+    Hover this card
+</x-lazy-hover-3d>
+<x-lazy-hover-3d :zone-count="12" class="card w-64 bg-base-200 p-6 shadow">
+    More hover zones
+</x-lazy-hover-3d>
+BLADE,
+            ]],
+            'hover-gallery' => [[
+                'title' => 'Hover gallery images',
+                'code' => <<<'BLADE'
+<x-lazy-hover-gallery :images="[
+    ['src' => 'https://picsum.photos/400/300?1', 'alt' => 'Image 1'],
+    ['src' => 'https://picsum.photos/400/300?2', 'alt' => 'Image 2'],
+    ['src' => 'https://picsum.photos/400/300?3', 'alt' => 'Image 3'],
+]" />
+BLADE,
+            ]],
+            'image' => [[
+                'title' => 'Image usage',
+                'code' => <<<'BLADE'
+<x-lazy-image src="https://picsum.photos/640/360" alt="Landscape" class="rounded-box w-80" />
+BLADE,
+            ]],
+            'kbd' => [[
+                'title' => 'Keyboard sizes',
+                'code' => <<<'BLADE'
+<div class="flex items-center gap-2">
+    <x-lazy-kbd value="Ctrl" xs />
+    <x-lazy-kbd value="K" sm />
+    <x-lazy-kbd value="Enter" md />
+    <x-lazy-kbd value="Esc" lg />
+    <x-lazy-kbd value="⌘" xl />
+</div>
+BLADE,
+            ]],
+            'list' => [[
+                'title' => 'Structured list',
+                'code' => <<<'BLADE'
+<x-lazy-list>
+    <x-lazy-list-row>First item</x-lazy-list-row>
+    <x-lazy-list-row>Second item</x-lazy-list-row>
+    <x-lazy-list-row>Third item</x-lazy-list-row>
+</x-lazy-list>
+BLADE,
+            ]],
+            'list-row' => [[
+                'title' => 'List rows',
+                'code' => <<<'BLADE'
+<x-lazy-list>
+    <x-lazy-list-row class="list-row">Default row</x-lazy-list-row>
+    <x-lazy-list-row class="list-row font-semibold">Highlighted row</x-lazy-list-row>
+</x-lazy-list>
+BLADE,
+            ]],
+            'stats' => [[
+                'title' => 'Stats layouts',
+                'code' => <<<'BLADE'
+<x-lazy-stats :items="[
+    ['title' => 'Users', 'value' => 1200, 'description' => '+12%'],
+    ['title' => 'Orders', 'value' => 320, 'description' => '+4%'],
+]" />
+<x-lazy-stats vertical :items="[
+    ['title' => 'CPU', 'value' => '32%'],
+    ['title' => 'RAM', 'value' => '61%'],
+]" />
+BLADE,
+            ]],
+            'stat' => [[
+                'title' => 'Stat slots',
+                'code' => <<<'BLADE'
+<x-lazy-stat title="Downloads" value="31K" description="Jan 1st - Feb 1st" />
+<x-lazy-stat title="Revenue" value="$8,400">
+    <x-slot:figure>↗</x-slot:figure>
+    <x-slot:actions><button class="btn btn-xs">Details</button></x-slot:actions>
+</x-lazy-stat>
+BLADE,
+            ]],
+            'status' => [[
+                'title' => 'Status colors and sizes',
+                'code' => <<<'BLADE'
+<div class="flex items-center gap-4">
+    <x-lazy-status neutral />
+    <x-lazy-status primary />
+    <x-lazy-status secondary />
+    <x-lazy-status accent />
+    <x-lazy-status info />
+    <x-lazy-status success />
+    <x-lazy-status warning />
+    <x-lazy-status error />
+</div>
+BLADE,
+            ]],
+            'table' => [[
+                'title' => 'Table data',
+                'code' => <<<'BLADE'
+<x-lazy-table
+    :headers="[
+        'name' => 'Name',
+        'role' => 'Role',
+        'status' => 'Status',
+    ]"
+    :rows="[
+        ['name' => 'Alice', 'role' => 'Admin', 'status' => 'Active'],
+        ['name' => 'Bob', 'role' => 'Editor', 'status' => 'Pending'],
+    ]"
+/>
+BLADE,
+            ], [
+                'title' => 'Table styles',
+                'code' => <<<'BLADE'
+<x-lazy-table zebra :headers="['Name', 'Role']" :rows="[['Alice', 'Admin'], ['Bob', 'Editor']]" />
+<x-lazy-table pin-rows :headers="['Name', 'Role']" :rows="[['Alice', 'Admin'], ['Bob', 'Editor']]" />
+<x-lazy-table pin-cols :headers="['Name', 'Role']" :rows="[['Alice', 'Admin'], ['Bob', 'Editor']]" />
+BLADE,
+            ]],
+            'text-rotate' => [[
+                'title' => 'Rotating text',
+                'code' => <<<'BLADE'
+<x-lazy-text-rotate :items="['Fast', 'Reusable', 'Universal']" />
+<x-lazy-text-rotate :items="['One', 'Two', 'Three']" :duration="1200" />
+BLADE,
+            ]],
+            'timeline-item' => [[
+                'title' => 'Timeline item states',
+                'code' => <<<'BLADE'
+<x-lazy-timeline>
+    <x-lazy-timeline-item first>First</x-lazy-timeline-item>
+    <x-lazy-timeline-item box>Middle</x-lazy-timeline-item>
+    <x-lazy-timeline-item last>Last</x-lazy-timeline-item>
+</x-lazy-timeline>
+BLADE,
+            ]],
+            'breadcrumbs' => [[
+                'title' => 'Breadcrumb item formats',
+                'code' => <<<'BLADE'
+<x-lazy-breadcrumbs :items="[
+    ['label' => 'Home', 'href' => '/'],
+    ['label' => 'Components', 'href' => '/docs/components'],
+    ['label' => 'Button', 'current' => true],
+]" />
+BLADE,
+            ]],
+            'dock' => [[
+                'title' => 'Dock with items',
+                'code' => <<<'BLADE'
+<x-lazy-dock :items="[
+    ['label' => 'Home', 'href' => '/', 'active' => true],
+    ['label' => 'Search', 'href' => '/search'],
+    ['label' => 'Profile', 'href' => '/profile'],
+]" />
+BLADE,
+            ]],
+            'dock-item' => [[
+                'title' => 'Dock item states',
+                'code' => <<<'BLADE'
+<x-lazy-dock>
+    <x-lazy-dock-item href="/" label="Home" active />
+    <x-lazy-dock-item href="/search" label="Search" />
+    <x-lazy-dock-item href="/profile" label="Profile" />
+</x-lazy-dock>
+BLADE,
+            ]],
+            'link' => [[
+                'title' => 'Link styles',
+                'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-4">
+    <x-lazy-link href="/" primary>Primary</x-lazy-link>
+    <x-lazy-link href="/" secondary>Secondary</x-lazy-link>
+    <x-lazy-link href="/" accent>Accent</x-lazy-link>
+    <x-lazy-link href="/" hover>Hover</x-lazy-link>
+</div>
+BLADE,
+            ]],
+            'menu' => [[
+                'title' => 'Menu item states',
+                'code' => <<<'BLADE'
+<x-lazy-menu-list>
+    <x-lazy-menu label="Default" href="#" />
+    <x-lazy-menu label="Active" href="#" active />
+    <x-lazy-menu label="Disabled" href="#" disabled />
+    <x-lazy-menu label="Focused" href="#" focus />
+    <x-lazy-menu label="Count" href="#" :count="12" />
+    <x-lazy-menu label="99+" href="#" :count="120" />
+    <x-lazy-menu label="Toggle" href="#" toggle />
+</x-lazy-menu-list>
+BLADE,
+            ]],
+            'menu-list' => [[
+                'title' => 'Menu layouts',
+                'code' => <<<'BLADE'
+<x-lazy-menu-list>
+    <x-lazy-menu label="One" href="#" />
+    <x-lazy-menu label="Two" href="#" />
+</x-lazy-menu-list>
+
+<x-lazy-menu-list horizontal>
+    <x-lazy-menu label="One" href="#" />
+    <x-lazy-menu label="Two" href="#" />
+</x-lazy-menu-list>
+
+<x-lazy-menu-list paged>
+    <x-lazy-menu label="Page 1" href="#" />
+    <x-lazy-menu label="Page 2" href="#" />
+</x-lazy-menu-list>
+BLADE,
+            ]],
+            'navbar' => [[
+                'title' => 'Navbar slots',
+                'code' => <<<'BLADE'
+<x-lazy-navbar class="bg-base-200 rounded-box px-4">
+    <x-slot:start><strong>Brand</strong></x-slot:start>
+    <x-slot:center>Center navigation</x-slot:center>
+    <x-slot:end><button class="btn btn-sm">Login</button></x-slot:end>
+</x-lazy-navbar>
+BLADE,
+            ]],
+            'pagination-item' => [[
+                'title' => 'Pagination item states',
+                'code' => <<<'BLADE'
+<div class="join">
+    <x-lazy-pagination-item href="?page=1">1</x-lazy-pagination-item>
+    <x-lazy-pagination-item href="?page=2" active>2</x-lazy-pagination-item>
+    <x-lazy-pagination-item disabled>3</x-lazy-pagination-item>
+</div>
+BLADE,
+            ]],
+            'step' => [[
+                'title' => 'Step colors',
+                'code' => <<<'BLADE'
+<x-lazy-steps>
+    <x-lazy-step primary>Primary</x-lazy-step>
+    <x-lazy-step secondary>Secondary</x-lazy-step>
+    <x-lazy-step accent>Accent</x-lazy-step>
+    <x-lazy-step success>Success</x-lazy-step>
+</x-lazy-steps>
+BLADE,
+            ]],
+            'tab' => [[
+                'title' => 'Tab states',
+                'code' => <<<'BLADE'
+<x-lazy-tabs type="box">
+    <x-lazy-tab label="Active" active />
+    <x-lazy-tab label="Default" />
+    <x-lazy-tab label="Disabled" disabled />
+</x-lazy-tabs>
+BLADE,
+            ]],
+            'alert' => [[
+                'title' => 'Alert types',
+                'code' => <<<'BLADE'
+<div class="space-y-3">
+    <x-lazy-alert info message="Information" />
+    <x-lazy-alert success message="Saved successfully" />
+    <x-lazy-alert warning message="Check this value" />
+    <x-lazy-alert error message="Something went wrong" />
+</div>
+BLADE,
+            ], [
+                'title' => 'Alert with actions',
+                'code' => <<<'BLADE'
+<x-lazy-alert warning message="Your session will expire soon">
+    <x-slot:actions>
+        <button class="btn btn-sm">Extend</button>
+    </x-slot:actions>
+</x-lazy-alert>
+BLADE,
+            ]],
+            'progress' => [[
+                'title' => 'Progress values',
+                'code' => <<<'BLADE'
+<div class="space-y-3">
+    <x-lazy-progress primary :value="20" :max="100" />
+    <x-lazy-progress success :value="55" :max="100" />
+    <x-lazy-progress warning :value="80" :max="100" />
+    <x-lazy-progress error :value="100" :max="100" />
+    <x-lazy-progress />
+</div>
+BLADE,
+            ]],
+            'radial' => [[
+                'title' => 'Radial progress',
+                'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-4">
+    <x-lazy-radial :value="25" />
+    <x-lazy-radial :value="50" label="Half" />
+    <x-lazy-radial :value="75" size="8rem" thickness="8px" primary />
+</div>
+BLADE,
+            ]],
+            'error' => [[
+                'title' => 'Error messages',
+                'code' => <<<'BLADE'
+<x-lazy-error message="This field is required." />
+<x-lazy-error>Custom validation error</x-lazy-error>
+BLADE,
+            ]],
+            'checkbox' => [[
+                'title' => 'Checkbox states',
+                'code' => <<<'BLADE'
+<div class="space-y-2">
+    <x-lazy-checkbox name="terms" label="Accept terms" />
+    <x-lazy-checkbox name="checked" label="Checked" checked />
+    <x-lazy-checkbox name="disabled" label="Disabled" disabled />
+</div>
+BLADE,
+            ]],
+            'choices' => [[
+                'title' => 'Choices options',
+                'code' => <<<'BLADE'
+<x-lazy-choices
+    name="role"
+    label="Role"
+    placeholder="Choose a role"
+    :options="[
+        'admin' => 'Administrator',
+        'editor' => 'Editor',
+        'viewer' => ['label' => 'Viewer', 'disabled' => true],
+    ]"
+/>
+BLADE,
+            ], [
+                'title' => 'Choices with Livewire',
+                'code' => <<<'BLADE'
+<x-lazy-choices
+    wire:model.live="role"
+    label="Role"
+    :options="$roles"
+/>
+BLADE,
+                'render' => false,
+            ]],
+            'fieldset' => [[
+                'title' => 'Fieldset with hint',
+                'code' => <<<'BLADE'
+<x-lazy-fieldset legend="Profile" label="Personal information" hint="All fields are optional">
+    <x-lazy-input name="name" placeholder="Name" />
+</x-lazy-fieldset>
+BLADE,
+            ]],
+            'file-input' => [[
+                'title' => 'File input styles',
+                'code' => <<<'BLADE'
+<div class="space-y-3">
+    <x-lazy-file-input name="file" />
+    <x-lazy-file-input name="ghost-file" ghost />
+    <x-lazy-file-input name="image" accept="image/*" primary />
+</div>
+BLADE,
+            ]],
+            'filter' => [[
+                'title' => 'Filter options',
+                'code' => <<<'BLADE'
+<x-lazy-filter
+    name="status"
+    value="active"
+    :options="[
+        'all' => 'All',
+        'active' => 'Active',
+        'disabled' => 'Disabled',
+    ]"
+/>
+BLADE,
+            ]],
+            'input' => [[
+                'title' => 'Input states',
+                'code' => <<<'BLADE'
+<div class="space-y-3">
+    <x-lazy-input name="name" label="Name" placeholder="John" />
+    <x-lazy-input name="email" label="Email" type="email" required />
+    <x-lazy-input name="search" placeholder="Search" validator hint="Enter at least 3 characters" />
+    <x-lazy-input name="disabled" value="Disabled" disabled />
+</div>
+BLADE,
+            ]],
+            'input-group' => [[
+                'title' => 'Input group',
+                'code' => <<<'BLADE'
+<x-lazy-input-group>
+    <span class="btn join-item">@</span>
+    <x-lazy-input name="username" class="join-item" placeholder="username" />
+</x-lazy-input-group>
+BLADE,
+            ]],
+            'label' => [[
+                'title' => 'Label states',
+                'code' => <<<'BLADE'
+<x-lazy-label for="email" label="Email" />
+<x-lazy-label for="name" label="Name" required />
+<x-lazy-label for="password" label="Password" has-error />
+<x-lazy-label for="bio" label="Biography" hr />
+BLADE,
+            ]],
+            'radio' => [[
+                'title' => 'Radio states',
+                'code' => <<<'BLADE'
+<div class="flex gap-4">
+    <x-lazy-radio name="plan" value="free" checked />
+    <x-lazy-radio name="plan" value="pro" primary />
+    <x-lazy-radio name="plan" value="team" disabled />
+</div>
+BLADE,
+            ]],
+            'richtext' => [[
+                'title' => 'Rich text editor',
+                'code' => <<<'BLADE'
+<x-lazy-richtext
+    wire:model="body"
+    placeholder="Write your article..."
+/>
+BLADE,
+                'render' => false,
+            ], [
+                'title' => 'Rich text required',
+                'code' => <<<'BLADE'
+<x-lazy-richtext
+    wire:model.live="body"
+    placeholder="Required content"
+    required
+/>
+BLADE,
+                'render' => false,
+            ]],
+            'select' => [[
+                'title' => 'Select options',
+                'code' => <<<'BLADE'
+<x-lazy-select
+    name="role"
+    label="Role"
+    placeholder="Select role"
+    :options="[
+        'admin' => 'Administrator',
+        'editor' => 'Editor',
+        'viewer' => ['label' => 'Viewer', 'disabled' => true],
+    ]"
+/>
+BLADE,
+            ], [
+                'title' => 'Select modes',
+                'code' => <<<'BLADE'
+<x-lazy-select name="required" label="Required" :options="['a' => 'A', 'b' => 'B']" required />
+<x-lazy-select name="multiple" label="Multiple" :options="['a' => 'A', 'b' => 'B']" multiple />
+<x-lazy-select name="validator" label="Validator" :options="['a' => 'A', 'b' => 'B']" validator hint="Pick one" />
+<x-lazy-select name="ghost" :options="['a' => 'A', 'b' => 'B']" color="ghost" />
+BLADE,
+            ]],
+            'textarea' => [[
+                'title' => 'Textarea states',
+                'code' => <<<'BLADE'
+<x-lazy-textarea name="bio" placeholder="Biography" />
+<x-lazy-textarea name="required-bio" placeholder="Required" required />
+<x-lazy-textarea name="validated-bio" validator hint="Minimum 10 characters" />
+<x-lazy-textarea name="disabled-bio" value="Disabled text" disabled />
+BLADE,
+            ]],
+            'toggle' => [[
+                'title' => 'Toggle states',
+                'code' => <<<'BLADE'
+<div class="flex gap-4">
+    <x-lazy-toggle name="enabled" />
+    <x-lazy-toggle name="active" checked />
+    <x-lazy-toggle name="disabled" disabled />
+    <x-lazy-toggle name="primary-toggle" primary />
+</div>
+BLADE,
+            ]],
+            'form' => [[
+                'title' => 'Standard form',
+                'code' => <<<'BLADE'
+<x-lazy-form action="/profile" method="POST">
+    <x-lazy-form-input name="name" label="Name" />
+    <x-lazy-btn type="submit" primary>Save</x-lazy-btn>
+</x-lazy-form>
+BLADE,
+            ], [
+                'title' => 'Spoofed HTTP methods',
+                'code' => <<<'BLADE'
+<x-lazy-form action="/posts/1" method="PATCH">
+    <x-lazy-form-input name="title" label="Title" />
+    <x-lazy-btn type="submit" primary>Update</x-lazy-btn>
+</x-lazy-form>
+BLADE,
+            ], [
+                'title' => 'Livewire form',
+                'code' => <<<'BLADE'
+<x-lazy-form wire:submit="save">
+    <x-lazy-form-input wire:model="name" label="Name" />
+    <x-lazy-btn type="submit" primary>Save</x-lazy-btn>
+</x-lazy-form>
+BLADE,
+                'render' => false,
+            ]],
+            'form-group' => [[
+                'title' => 'Form group states',
+                'code' => <<<'BLADE'
+<x-lazy-form-group label="Email">
+    <x-lazy-input name="email" type="email" />
+</x-lazy-form-group>
+
+<x-lazy-form-group label="Password" help="At least 8 characters" hr>
+    <x-lazy-input name="password" type="password" />
+</x-lazy-form-group>
+BLADE,
+            ]],
+            'form-input' => [[
+                'title' => 'Form input options',
+                'code' => <<<'BLADE'
+<x-lazy-form-input name="name" label="Name" />
+<x-lazy-form-input name="email" label="Email" type="email" required />
+<x-lazy-form-input name="username" label="Username" help="Public profile name" />
+<x-lazy-form-input name="slug" label="Slug" outer-class="max-w-md" hr />
+BLADE,
+            ]],
+            'form-select' => [[
+                'title' => 'Form select',
+                'code' => <<<'BLADE'
+<x-lazy-form-select
+    name="role"
+    label="Role"
+    :options="['admin' => 'Admin', 'editor' => 'Editor']"
+/>
+<x-lazy-form-select
+    name="required-role"
+    label="Required role"
+    :options="['admin' => 'Admin', 'editor' => 'Editor']"
+    required
+    help="Choose access level"
+/>
+BLADE,
+            ]],
+            'form-textarea' => [[
+                'title' => 'Form textarea',
+                'code' => <<<'BLADE'
+<x-lazy-form-textarea name="bio" label="Biography" />
+<x-lazy-form-textarea name="notes" label="Notes" help="Internal only" hr />
+<x-lazy-form-textarea name="required-notes" label="Required notes" required />
+BLADE,
+            ]],
+            'form-checkbox' => [[
+                'title' => 'Form checkbox',
+                'code' => <<<'BLADE'
+<x-lazy-form-checkbox name="terms" label="Accept terms" />
+<x-lazy-form-checkbox name="newsletter" label="Newsletter" help="Receive product updates" checked />
+<x-lazy-form-checkbox name="archived" label="Archived" hr />
+BLADE,
+            ]],
+            'form-toggle' => [[
+                'title' => 'Form toggle',
+                'code' => <<<'BLADE'
+<x-lazy-form-toggle name="enabled" label="Enabled" />
+<x-lazy-form-toggle name="notifications" label="Notifications" help="Send email notifications" checked />
+<x-lazy-form-toggle name="archived" label="Archived" hr />
+BLADE,
+            ]],
+            'form-image' => [[
+                'title' => 'Form image',
+                'code' => <<<'BLADE'
+<x-lazy-form-image name="photo" label="Photo" />
+<x-lazy-form-image name="avatar" label="Avatar" required help="PNG or JPG" />
+<x-lazy-form-image name="cover" label="Cover" src="/images/cover.jpg" outer-class="max-w-lg" />
+BLADE,
+            ]],
+            'form-richtext' => [[
+                'title' => 'Form rich text',
+                'code' => <<<'BLADE'
+<x-lazy-form-richtext wire:model="body" label="Body" />
+<x-lazy-form-richtext wire:model="summary" label="Summary" help="Shown on cards" />
+<x-lazy-form-richtext wire:model="content" label="Content" required hr />
+BLADE,
+                'render' => false,
+            ]],
+            'drawer' => [[
+                'title' => 'Drawer sides',
+                'code' => <<<'BLADE'
+<x-lazy-drawer id="left-drawer">
+    <button class="btn" onclick="document.getElementById('left-drawer').click()">Open</button>
+    <x-slot:side>
+        <ul class="menu">
+            <li><a>Home</a></li>
+            <li><a>Settings</a></li>
+        </ul>
+    </x-slot:side>
+</x-lazy-drawer>
+
+<x-lazy-drawer id="right-drawer" end>
+    Right drawer content
+    <x-slot:side>Right side</x-slot:side>
+</x-lazy-drawer>
+BLADE,
+            ], [
+                'title' => 'Drawer sizing',
+                'code' => <<<'BLADE'
+<x-lazy-drawer width="xs" padding="xs" background="base-200">XS drawer</x-lazy-drawer>
+<x-lazy-drawer width="md" padding="md" background="base-100">MD drawer</x-lazy-drawer>
+<x-lazy-drawer width="lg" padding="lg" background="neutral">LG drawer</x-lazy-drawer>
+<x-lazy-drawer width="full" padding="none" background="primary">Full drawer</x-lazy-drawer>
+BLADE,
+            ]],
+            'mockup-browser' => [[
+                'title' => 'Browser mockup',
+                'code' => <<<'BLADE'
+<x-lazy-mockup-browser url="https://step2.dev" class="border border-base-300">
+    <div class="grid h-48 place-content-center bg-base-200">Page content</div>
+</x-lazy-mockup-browser>
+BLADE,
+            ]],
+            'mockup-code' => [[
+                'title' => 'Code mockup',
+                'code' => <<<'BLADE'
+<x-lazy-mockup-code prefix="$">composer require step2dev/lazy-ui</x-lazy-mockup-code>
+BLADE,
+            ], [
+                'title' => 'Code mockup lines',
+                'code' => <<<'BLADE'
+<x-lazy-mockup-code :lines="[
+    ['prefix' => '
+
+    private function exampleTag(string $tag, array $attributes = [], ?string $label = null): string
+    {
+        $parts = collect($attributes)
+            ->map(function (mixed $value, string $key): string {
+                if ($value === true) {
+                    return $key;
+                }
+
+                if ($value === false || $value === null) {
+                    return '';
+                }
+
+                return $key.'="'.e((string) $value).'"';
+            })
+            ->filter()
+            ->implode(' ');
+
+        $parts = $parts !== '' ? ' '.$parts : '';
+
+        if ($label !== null && collect($this->parameters)->pluck('name')->contains('label')) {
+            return '<x-lazy-'.$tag.$parts.' label="'.e($label).'" />';
+        }
+
+        return '<x-lazy-'.$tag.$parts.' />';
+    }
+
+    private function resolveComponentClass(string $tag): ?string
+    {
+        $aliases = Blade::getClassComponentAliases();
+
+        return $aliases['lazy-'.$tag] ?? null;
+    }
+
+    private function resolveParameters(?string $class): array
+    {
+        if ($class === null || ! class_exists($class)) {
+            return [];
+        }
+
+        $constructor = (new ReflectionClass($class))->getConstructor();
+
+        if ($constructor === null) {
+            return [];
+        }
+
+        return collect($constructor->getParameters())
+            ->map(fn (ReflectionParameter $parameter): array => [
+                'name' => $parameter->getName(),
+                'type' => $this->formatType($parameter),
+                'required' => ! $parameter->isOptional(),
+                'default' => $this->formatDefault($parameter),
+            ])
+            ->values()
+            ->all();
+    }
+
+    private function formatType(ReflectionParameter $parameter): string
+    {
+        $type = $parameter->getType();
+
+        if ($type instanceof ReflectionNamedType) {
+            return ($type->allowsNull() && $type->getName() !== 'mixed' ? '?' : '').$type->getName();
+        }
+
+        if ($type instanceof ReflectionUnionType) {
+            return collect($type->getTypes())
+                ->map(fn (ReflectionNamedType $type): string => $type->getName())
+                ->implode('|');
+        }
+
+        return 'mixed';
+    }
+
+    private function formatDefault(ReflectionParameter $parameter): string
+    {
+        if (! $parameter->isDefaultValueAvailable()) {
+            return '—';
+        }
+
+        $value = $parameter->getDefaultValue();
+
+        return match (true) {
+            $value === null => 'null',
+            $value === true => 'true',
+            $value === false => 'false',
+            is_string($value) => "'".$value."'",
+            is_array($value) => $value === [] ? '[]' : json_encode($value, JSON_UNESCAPED_SLASHES),
+            default => (string) $value,
+        };
+    }
+}
+, 'code' => 'composer install'],
+    ['prefix' => '>', 'code' => 'Installing dependencies...', 'class' => 'text-warning'],
+    ['prefix' => '✓', 'code' => 'Done', 'class' => 'text-success'],
+]" />
+BLADE,
+            ]],
+            'mockup-phone' => [[
+                'title' => 'Phone mockup',
+                'code' => <<<'BLADE'
+<x-lazy-mockup-phone>
+    <div class="grid h-full place-content-center bg-base-200">Mobile app</div>
+</x-lazy-mockup-phone>
+BLADE,
+            ]],
+            'mockup-window' => [[
+                'title' => 'Window mockup',
+                'code' => <<<'BLADE'
+<x-lazy-mockup-window class="border border-base-300">
+    <div class="grid h-48 place-content-center bg-base-200">Desktop app</div>
+</x-lazy-mockup-window>
+BLADE,
+            ]],
+            'country-time-widget' => [[
+                'title' => 'Country time widget',
+                'code' => <<<'BLADE'
+<x-lazy-country-time-widget />
+BLADE,
+            ]],
             default => [],
         };
     }
