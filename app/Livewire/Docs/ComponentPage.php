@@ -22,6 +22,8 @@ class ComponentPage extends Component
 
     public array $parameters = [];
 
+    public array $examples = [];
+
     public function mount(string $slug): void
     {
         $this->slug = $slug;
@@ -35,6 +37,7 @@ class ComponentPage extends Component
             $this->docComponent = $components[$slug];
             $this->componentClass = $this->resolveComponentClass($this->docComponent['tag']);
             $this->parameters = $this->resolveParameters($this->componentClass);
+            $this->examples = $this->resolveExamples($slug);
 
             return;
         }
@@ -49,6 +52,82 @@ class ComponentPage extends Component
                 'title' => $this->docComponent['name'],
                 'description' => $this->docComponent['description'],
             ]);
+    }
+
+
+    private function resolveExamples(string $slug): array
+    {
+        return match ($slug) {
+            'loading' => [
+                [
+                    'title' => 'Loading types',
+                    'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-4">
+    <x-lazy-loading type="spinner" />
+    <x-lazy-loading type="dots" />
+    <x-lazy-loading type="ring" />
+    <x-lazy-loading type="ball" />
+    <x-lazy-loading type="bars" />
+    <x-lazy-loading type="infinity" />
+</div>
+BLADE,
+                ],
+                [
+                    'title' => 'Loading sizes',
+                    'code' => <<<'BLADE'
+<div class="flex items-center gap-4">
+    <x-lazy-loading xs />
+    <x-lazy-loading sm />
+    <x-lazy-loading md />
+    <x-lazy-loading lg />
+</div>
+BLADE,
+                ],
+                [
+                    'title' => 'Loading colors',
+                    'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-4">
+    <x-lazy-loading primary />
+    <x-lazy-loading secondary />
+    <x-lazy-loading accent />
+    <x-lazy-loading info />
+    <x-lazy-loading success />
+    <x-lazy-loading warning />
+    <x-lazy-loading error />
+</div>
+BLADE,
+                ],
+            ],
+            'button' => [
+                [
+                    'title' => 'Button variants',
+                    'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-2">
+    <x-lazy-btn primary>Primary</x-lazy-btn>
+    <x-lazy-btn secondary>Secondary</x-lazy-btn>
+    <x-lazy-btn accent>Accent</x-lazy-btn>
+    <x-lazy-btn outline>Outline</x-lazy-btn>
+    <x-lazy-btn ghost>Ghost</x-lazy-btn>
+</div>
+BLADE,
+                ],
+            ],
+            'badge' => [
+                [
+                    'title' => 'Badge variants',
+                    'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-2">
+    <x-lazy-badge primary label="Primary" />
+    <x-lazy-badge success label="Success" />
+    <x-lazy-badge warning label="Warning" />
+    <x-lazy-badge error label="Error" />
+    <x-lazy-badge outline label="Outline" />
+</div>
+BLADE,
+                ],
+            ],
+            default => [],
+        };
     }
 
     private function resolveComponentClass(string $tag): ?string
