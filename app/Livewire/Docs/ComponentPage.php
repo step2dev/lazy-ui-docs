@@ -121,6 +121,94 @@ class ComponentPage extends Component
 </div>
 BLADE,
             ]],
+            'aura' => [[
+                'title' => 'Aura types',
+                'code' => <<<'BLADE'
+<div class="flex flex-wrap gap-4">
+    <x-lazy-aura type="dual">Dual</x-lazy-aura>
+    <x-lazy-aura type="rainbow">Rainbow</x-lazy-aura>
+    <x-lazy-aura type="holo">Holo</x-lazy-aura>
+    <x-lazy-aura type="gold">Gold</x-lazy-aura>
+    <x-lazy-aura type="silver">Silver</x-lazy-aura>
+    <x-lazy-aura type="rainbow" glow>Glow</x-lazy-aura>
+</div>
+BLADE,
+            ]],
+            'calendar' => [[
+                'title' => 'Calendar drivers',
+                'code' => <<<'BLADE'
+<x-lazy-calendar driver="native" />
+<x-lazy-calendar driver="cally" />
+<x-lazy-calendar driver="vc" />
+<x-lazy-calendar driver="react-day-picker" />
+BLADE,
+            ]],
+            'chat' => [[
+                'title' => 'Chat positions',
+                'code' => <<<'BLADE'
+<x-lazy-chat name="Alice" message="Start message" start />
+<x-lazy-chat name="Bob" message="End message" end />
+<x-lazy-chat name="Alice" message="Left alias" left />
+<x-lazy-chat name="Bob" message="Right alias" right />
+BLADE,
+            ]],
+            'divider' => [[
+                'title' => 'Divider orientations',
+                'code' => <<<'BLADE'
+<x-lazy-divider text="Vertical" vertical />
+<x-lazy-divider text="Horizontal" horizontal />
+<x-lazy-divider text="HR alias" hr />
+BLADE,
+            ]],
+            'hero' => [[
+                'title' => 'Hero alignments',
+                'code' => <<<'BLADE'
+<x-lazy-hero title="Start" description="Left aligned" align="start" />
+<x-lazy-hero title="Center" description="Centered" align="center" />
+<x-lazy-hero title="End" description="Right aligned" align="end" />
+BLADE,
+            ], [
+                'title' => 'Hero backgrounds',
+                'code' => <<<'BLADE'
+<x-lazy-hero title="Base 100" background="base-100" />
+<x-lazy-hero title="Base 200" background="base-200" />
+<x-lazy-hero title="Base 300" background="base-300" />
+<x-lazy-hero title="Neutral" background="neutral" />
+<x-lazy-hero title="Primary" background="primary" />
+<x-lazy-hero title="Secondary" background="secondary" />
+BLADE,
+            ], [
+                'title' => 'Hero widths and title sizes',
+                'code' => <<<'BLADE'
+<x-lazy-hero title="Small" width="sm" title-size="sm" spacing="sm" />
+<x-lazy-hero title="Medium" width="md" title-size="md" spacing="md" />
+<x-lazy-hero title="Large" width="lg" title-size="lg" spacing="lg" />
+<x-lazy-hero title="XL" width="xl" title-size="xl" />
+<x-lazy-hero title="Full" width="full" title-size="lg" spacing="none" />
+BLADE,
+            ]],
+            'indicator' => [[
+                'title' => 'Indicator positions',
+                'code' => <<<'BLADE'
+<x-lazy-indicator indicator="1" horizontal="start" vertical="top"><button class="btn">Start top</button></x-lazy-indicator>
+<x-lazy-indicator indicator="2" horizontal="center" vertical="middle"><button class="btn">Center middle</button></x-lazy-indicator>
+<x-lazy-indicator indicator="3" horizontal="end" vertical="bottom"><button class="btn">End bottom</button></x-lazy-indicator>
+BLADE,
+            ]],
+            'join' => [[
+                'title' => 'Join directions',
+                'code' => <<<'BLADE'
+<x-lazy-join horizontal>
+    <x-lazy-btn>One</x-lazy-btn>
+    <x-lazy-btn>Two</x-lazy-btn>
+</x-lazy-join>
+
+<x-lazy-join vertical>
+    <x-lazy-btn>One</x-lazy-btn>
+    <x-lazy-btn>Two</x-lazy-btn>
+</x-lazy-join>
+BLADE,
+            ]],
             'loading' => [[
                 'title' => 'Loading types',
                 'code' => <<<'BLADE'
@@ -187,12 +275,26 @@ BLADE,
             'mask' => [[
                 'title' => 'Mask shapes',
                 'code' => <<<'BLADE'
-<div class="flex flex-wrap gap-4">
+<div class="grid grid-cols-3 gap-4 md:grid-cols-5">
     <x-lazy-mask shape="squircle"><img src="https://picsum.photos/100" alt="" /></x-lazy-mask>
     <x-lazy-mask shape="heart"><img src="https://picsum.photos/101" alt="" /></x-lazy-mask>
     <x-lazy-mask shape="hexagon"><img src="https://picsum.photos/102" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="triangle"><img src="https://picsum.photos/103" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="circle"><img src="https://picsum.photos/104" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="hexagon-2"><img src="https://picsum.photos/103" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="decagon"><img src="https://picsum.photos/104" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="pentagon"><img src="https://picsum.photos/105" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="diamond"><img src="https://picsum.photos/106" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="circle"><img src="https://picsum.photos/107" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="star"><img src="https://picsum.photos/108" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="star-2"><img src="https://picsum.photos/109" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="triangle"><img src="https://picsum.photos/110" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="triangle-2"><img src="https://picsum.photos/111" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="triangle-3"><img src="https://picsum.photos/112" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="triangle-4"><img src="https://picsum.photos/113" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="square"><img src="https://picsum.photos/114" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="parallelogram"><img src="https://picsum.photos/115" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="parallelogram-2"><img src="https://picsum.photos/116" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="parallelogram-3"><img src="https://picsum.photos/117" alt="" /></x-lazy-mask>
+    <x-lazy-mask shape="parallelogram-4"><img src="https://picsum.photos/118" alt="" /></x-lazy-mask>
 </div>
 BLADE,
             ]],
