@@ -65,18 +65,6 @@
                 <code>wire:click</code> and <code>wire:loading</code>.
             </p>
 
-            <h2>Version compatibility</h2>
-            <div class="overflow-x-auto">
-                <table class="table table-zebra">
-                    <tbody>
-                    <tr><th>Lazy UI</th><td>2.x</td></tr>
-                    <tr><th>Laravel</th><td>12 / 13</td></tr>
-                    <tr><th>Livewire</th><td>4.4+</td></tr>
-                    <tr><th>Tailwind CSS</th><td>4.x</td></tr>
-                    <tr><th>daisyUI</th><td>5.x</td></tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
 
         <aside class="h-fit rounded-box border border-base-300 bg-base-200/40 p-5 xl:sticky xl:top-24">
