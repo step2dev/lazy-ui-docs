@@ -2,11 +2,12 @@
 
 namespace App\View\Components;
 
+use Closure;
 use Step2dev\LazyUI\LazyComponent;
 
 class Code extends LazyComponent
 {
-    public function render(): \Illuminate\Contracts\View\View|\Closure
+    public function render(): \Illuminate\Contracts\View\View|Closure
     {
         return function (array $data) {
             $attributes = $this->getAttributesFromData($data);
