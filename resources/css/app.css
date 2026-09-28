@@ -1,36 +1,47 @@
-@import "../scss/lazy.scss";
+@import "tailwindcss";
+@import "../../vendor/step2dev/lazy-ui/resources/css/lazy.css";
 
-/*
- Margin and rounding are personal preferences,
- overflow-x-auto is recommended.
-*/
-pre {
-    @apply my-4 rounded overflow-x-auto;
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+@source "../../app/**/*.php";
+@source "../../config/docs.php";
+@source "../../vendor/step2dev/lazy-ui/src/**/*.php";
+@source "../../vendor/step2dev/lazy-ui/resources/views/**/*.blade.php";
+@source "../../vendor/step2dev/lazy-ui/resources/js/**/*.js";
+
+@plugin "@tailwindcss/forms" {
+    strategy: "class";
 }
 
-/*
- Add some vertical padding and expand the width
- to fill its container. The horizontal padding
- comes at the line level so that background
- colors extend edge to edge.
-*/
-pre code.torchlight {
-    @apply block py-4 min-w-max;
-    background: transparent !important;
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, cupcake, bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss, silk;
+    logs: false;
 }
 
-/*
- Horizontal line padding.
-*/
-pre code.torchlight .line {
-    @apply px-4;
+html {
+    scroll-behavior: smooth;
 }
 
-/*
- Push the code away from the line numbers and
- summary caret indicators.
-*/
-pre code.torchlight .line-number,
-pre code.torchlight .summary-caret {
-    @apply mr-4;
+[x-cloak] {
+    display: none !important;
+}
+
+.docs-code {
+    @apply overflow-x-auto rounded-box bg-neutral p-4 text-sm text-neutral-content;
+}
+
+.docs-prose h2 {
+    @apply mt-10 mb-4 text-2xl font-bold;
+}
+
+.docs-prose h3 {
+    @apply mt-8 mb-3 text-xl font-semibold;
+}
+
+.docs-prose p {
+    @apply my-3 leading-7;
+}
+
+.docs-prose code:not(pre code) {
+    @apply rounded bg-base-200 px-1.5 py-0.5 text-sm;
 }
