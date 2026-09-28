@@ -5,27 +5,26 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\View\Component;
 use Step2dev\LazyUI\LazyComponent;
 
 class CodePreview extends LazyComponent
 {
-    public function __construct()
-    {
-    }
-
     public function render(): View|Closure
     {
         return function (array $data) {
             $attributes = $this->getAttributesFromData($data);
-            $title = $attributes->get('title');
-            $attributes['id'] ??= str()->slug($title);
+            $title = (string) $attributes->get('title', '');
+            $attributes['id'] ??= str()->slug($title ?: 'example');
             $attributes['href'] ??= '#'.$attributes['id'];
-            $code = $attributes->get('code', (string) $data['slot']);
-            $code = html_entity_decode($code);
-            $preview = Blade::render($code, deleteCachedView: true);
+
+            $code = html_entity_decode((string) $attributes->get('code', (string) $data['slot']));
             $attributes['code'] = $code;
-            $attributes['preview'] = $preview;
+
+            if ($attributes->get('render', true)) {
+                $attributes['preview'] = Blade::render($code, deleteCachedView: true);
+            } else {
+                $attributes['preview'] = null;
+            }
 
             $data['attributes'] = $attributes;
 
