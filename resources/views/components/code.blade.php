@@ -4,7 +4,8 @@
 ])
 
 <pre class="mockup-code w-full overflow-x-auto">
-<x-torchlight-code :language="$language">
-{!! $code !!}
+<x-torchlight-code language='{{ $language }}'>
+    // torchlight! {"summaryCollapsedIndicator": "Click to Show"}
+    {!! $code !!}
 </x-torchlight-code>
 </pre>
