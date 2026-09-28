@@ -25,6 +25,7 @@
                     <x-code-preview
                         :title="$example['title']"
                         :code="$example['code']"
+                        :render="$example['render'] ?? true"
                     />
                 @endforeach
             @endif
