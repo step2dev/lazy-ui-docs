@@ -92,11 +92,266 @@ class ComponentPage extends Component
             ];
         }
 
+        foreach ($this->exhaustiveCommonExamples($slug, $tag, $parameterNames) as $example) {
+            $examples[] = $example;
+        }
+
         foreach ($this->componentSpecificExamples($slug) as $example) {
             $examples[] = $example;
         }
 
         return $examples;
+    }
+
+    private function exhaustiveCommonExamples(string $slug, string $tag, \Illuminate\Support\Collection $parameterNames): array
+    {
+        $examples = [];
+
+        $forcedColors = [
+            'button' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger', 'link'],
+            'badge' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger'],
+            'alert' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'danger'],
+            'link' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+            'chat' => ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+            'tooltip' => ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+            'input' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
+            'select' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
+            'textarea' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
+        ];
+
+        $forcedSizes = [
+            'button' => ['xs', 'sm', 'md', 'lg', 'xl'],
+            'badge' => ['xs', 'sm', 'md', 'lg', 'xl'],
+        ];
+
+        if (isset($forcedColors[$slug]) && ! $parameterNames->contains('color')) {
+            $examples[] = [
+                'title' => 'Colors',
+                'code' => collect($forcedColors[$slug])
+                    ->map(fn (string $color): string => $this->exampleTag($tag, [$color => true], ucfirst($color)))
+                    ->implode("\n"),
+            ];
+        }
+
+        if (isset($forcedSizes[$slug]) && ! $parameterNames->contains('size')) {
+            $examples[] = [
+                'title' => 'Sizes',
+                'code' => collect($forcedSizes[$slug])
+                    ->map(fn (string $size): string => $this->exampleTag($tag, [$size => true], strtoupper($size)))
+                    ->implode("\n"),
+            ];
+        }
+
+        $enumOptions = $this->enumOptions($slug);
+
+        foreach ($enumOptions as $parameter => $values) {
+            $examples[] = [
+                'title' => str($parameter)->headline().' values',
+                'code' => collect($values)
+                    ->map(fn (string|int|float $value): string => $this->exampleTag(
+                        $tag,
+                        [$parameter => $value],
+                        ucfirst(str_replace(['-', '_'], ' ', (string) $value))
+                    ))
+                    ->implode("\n"),
+            ];
+        }
+
+        $booleanParameters = collect($this->parameters)
+            ->filter(fn (array $parameter): bool => str_contains($parameter['type'], 'bool'))
+            ->pluck('name')
+            ->reject(fn (string $name): bool => in_array($name, [
+                'vertical', 'horizontal', 'top', 'middle', 'bottom', 'start', 'center', 'end', 'left', 'right',
+            ], true))
+            ->values();
+
+        if ($booleanParameters->isNotEmpty()) {
+            $examples[] = [
+                'title' => 'Boolean options',
+                'code' => $booleanParameters
+                    ->map(fn (string $name): string => $this->exampleTag($tag, [$name => true], str($name)->headline()->toString()))
+                    ->implode("\n"),
+            ];
+        }
+
+        foreach ($this->attributeExamples($slug, $tag) as $example) {
+            $examples[] = $example;
+        }
+
+        return $examples;
+    }
+
+    private function enumOptions(string $slug): array
+    {
+        return match ($slug) {
+            'accordion' => [
+                'type' => ['plus', 'arrow'],
+            ],
+            'aura' => [
+                'type' => ['dual', 'rainbow', 'holo', 'gold', 'silver'],
+            ],
+            'calendar' => [
+                'driver' => ['native', 'cally', 'vc', 'react-day-picker'],
+            ],
+            'chat' => [
+                'position' => ['start', 'end', 'left', 'right'],
+            ],
+            'divider' => [
+                'orientation' => ['vertical', 'horizontal'],
+            ],
+            'dropdown' => [
+                'position' => ['start', 'center', 'end', 'top', 'bottom', 'left', 'right'],
+            ],
+            'hero' => [
+                'background' => ['none', 'base-100', 'base-200', 'base-300', 'neutral', 'primary', 'secondary'],
+                'align' => ['start', 'center', 'end'],
+                'width' => ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+                'titleSize' => ['xs', 'sm', 'md', 'lg', 'xl'],
+                'spacing' => ['none', 'xs', 'sm', 'md', 'lg'],
+            ],
+            'indicator' => [
+                'horizontal' => ['start', 'center', 'end'],
+                'vertical' => ['top', 'middle', 'bottom'],
+            ],
+            'join' => [
+                'position' => ['vertical', 'horizontal'],
+            ],
+            'loading' => [
+                'type' => ['spinner', 'dots', 'ring', 'ball', 'bars', 'infinity'],
+            ],
+            'mask' => [
+                'shape' => [
+                    'squircle', 'heart', 'hexagon', 'hexagon-2', 'decagon', 'pentagon', 'diamond', 'circle',
+                    'star', 'star-2', 'triangle', 'triangle-2', 'triangle-3', 'triangle-4', 'square',
+                    'parallelogram', 'parallelogram-2', 'parallelogram-3', 'parallelogram-4',
+                ],
+            ],
+            'rating' => [
+                'mask' => ['star-2', 'star', 'heart'],
+                'type' => ['star-2', 'star', 'heart'],
+            ],
+            'tabs' => [
+                'type' => ['box', 'boxed', 'lift', 'lifted', 'border', 'bordered'],
+                'placement' => ['top', 'bottom'],
+            ],
+            'theme-controller' => [
+                'type' => ['checkbox', 'radio'],
+            ],
+            'tooltip' => [
+                'position' => ['top', 'right', 'bottom', 'left'],
+                'align' => ['start', 'center', 'end'],
+            ],
+            'drawer' => [
+                'width' => ['xs', 'sm', 'md', 'lg', 'full'],
+                'padding' => ['none', 'xs', 'sm', 'md', 'lg'],
+                'background' => ['none', 'base-100', 'base-200', 'base-300', 'neutral', 'primary', 'secondary'],
+            ],
+            default => [],
+        };
+    }
+
+    private function attributeExamples(string $slug, string $tag): array
+    {
+        return match ($slug) {
+            'button' => [[
+                'title' => 'All button modifiers',
+                'code' => collect([
+                    'outline', 'dash', 'soft', 'wide', 'block', 'circle', 'square', 'group', 'join', 'disabled',
+                ])->map(fn (string $attribute): string => $this->exampleTag($tag, [$attribute => true], ucfirst($attribute)))->implode("\n"),
+            ], [
+                'title' => 'Button HTML types',
+                'code' => collect(['button', 'submit', 'reset'])
+                    ->map(fn (string $type): string => '<x-lazy-btn type="'.$type.'">'.ucfirst($type).'</x-lazy-btn>')
+                    ->implode("\n"),
+            ], [
+                'title' => 'Button links and icons',
+                'code' => <<<'BLADE'
+<x-lazy-btn href="/docs">Link button</x-lazy-btn>
+<x-lazy-btn icon="heroicon-o-plus">Left icon</x-lazy-btn>
+<x-lazy-btn right-icon="heroicon-o-arrow-right">Right icon</x-lazy-btn>
+<x-lazy-btn rounded>Rounded</x-lazy-btn>
+<x-lazy-btn squared>Squared</x-lazy-btn>
+BLADE,
+            ]],
+            'badge' => [[
+                'title' => 'Badge modifiers',
+                'code' => <<<'BLADE'
+<x-lazy-badge outline>Outline</x-lazy-badge>
+<x-lazy-badge dash>Dash</x-lazy-badge>
+<x-lazy-badge soft>Soft</x-lazy-badge>
+BLADE,
+            ]],
+            'alert' => [[
+                'title' => 'Alert modifiers',
+                'code' => <<<'BLADE'
+<x-lazy-alert info message="Default" />
+<x-lazy-alert info soft message="Soft" />
+<x-lazy-alert info dash message="Dash" />
+BLADE,
+            ]],
+            'link' => [[
+                'title' => 'Link modifier',
+                'code' => <<<'BLADE'
+<x-lazy-link href="/">Default</x-lazy-link>
+<x-lazy-link href="/" hover>Hover underline</x-lazy-link>
+BLADE,
+            ]],
+            'input' => [[
+                'title' => 'HTML input types',
+                'code' => collect([
+                    'text', 'email', 'password', 'number', 'search', 'tel', 'url', 'date', 'time', 'datetime-local',
+                    'month', 'week', 'color',
+                ])->map(fn (string $type): string => '<x-lazy-input type="'.$type.'" name="'.$type.'" label="'.str($type)->headline().'" />')->implode("\n"),
+            ]],
+            'file-input' => [[
+                'title' => 'File input modes',
+                'code' => <<<'BLADE'
+<x-lazy-file-input name="file" />
+<x-lazy-file-input name="ghost" ghost />
+<x-lazy-file-input name="image" accept="image/*" />
+<x-lazy-file-input name="multiple" multiple />
+<x-lazy-file-input name="disabled" disabled />
+BLADE,
+            ]],
+            'select' => [[
+                'title' => 'Select special colors',
+                'code' => <<<'BLADE'
+<x-lazy-select color="ghost" :options="['a' => 'A', 'b' => 'B']" />
+<x-lazy-select color="no-border" :options="['a' => 'A', 'b' => 'B']" />
+BLADE,
+            ]],
+            'textarea' => [[
+                'title' => 'Textarea special colors',
+                'code' => <<<'BLADE'
+<x-lazy-textarea color="ghost" placeholder="Ghost" />
+<x-lazy-textarea color="no-border" placeholder="No border" />
+BLADE,
+            ]],
+            'tooltip' => [[
+                'title' => 'Tooltip smart attributes',
+                'code' => <<<'BLADE'
+<x-lazy-tooltip tip="Top" top><button class="btn">Top</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="Right" right><button class="btn">Right</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="Bottom" bottom><button class="btn">Bottom</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="Left" left><button class="btn">Left</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="Start" start><button class="btn">Start</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="Center" center><button class="btn">Center</button></x-lazy-tooltip>
+<x-lazy-tooltip tip="End" end><button class="btn">End</button></x-lazy-tooltip>
+BLADE,
+            ]],
+            'loading' => [[
+                'title' => 'Loading smart type attributes',
+                'code' => <<<'BLADE'
+<x-lazy-loading spinner />
+<x-lazy-loading dots />
+<x-lazy-loading ring />
+<x-lazy-loading ball />
+<x-lazy-loading bars />
+<x-lazy-loading infinity />
+BLADE,
+            ]],
+            default => [],
+        };
     }
 
     private function componentSpecificExamples(string $slug): array
