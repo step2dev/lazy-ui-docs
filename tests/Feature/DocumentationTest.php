@@ -4,9 +4,17 @@ namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Blade;
 use Tests\TestCase;
+use Torchlight\Middleware\RenderTorchlight;
 
 class DocumentationTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutMiddleware(RenderTorchlight::class);
+    }
+
     public function test_getting_started_page_renders(): void
     {
         $this->get('/docs/getting-started')
@@ -46,22 +54,24 @@ class DocumentationTest extends TestCase
 
     public function test_every_registered_lazy_ui_component_is_documented(): void
     {
-        $documentedAliases = collect(config('docs.categories', []))
+        $aliases = collect(Blade::getClassComponentAliases());
+
+        $documentedClasses = collect(config('docs.categories', []))
             ->flatMap(fn (array $components): array => collect($components)
                 ->pluck('tag')
-                ->map(fn (string $tag): string => 'lazy-'.$tag)
+                ->map(fn (string $tag): ?string => $aliases->get('lazy-'.$tag))
+                ->filter()
                 ->all())
             ->unique()
             ->values();
 
-        $registeredAliases = collect(Blade::getClassComponentAliases())
-            ->keys()
-            ->filter(fn (string $alias): bool => str_starts_with($alias, 'lazy-'))
-            ->unique()
-            ->values();
+        $registeredClasses = $aliases
+            ->filter(fn (string $class, string $alias): bool => str_starts_with($alias, 'lazy-'))
+            ->values()
+            ->unique();
 
-        $missing = $registeredAliases->diff($documentedAliases)->values();
+        $missing = $registeredClasses->diff($documentedClasses)->values();
 
-        $this->assertSame([], $missing->all(), 'Undocumented Lazy UI components: '.$missing->implode(', '));
+        $this->assertSame([], $missing->all(), 'Undocumented Lazy UI component classes: '.$missing->implode(', '));
     }
 }
