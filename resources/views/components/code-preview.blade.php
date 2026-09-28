@@ -58,12 +58,16 @@
         @endif
 
         <div x-show="tabType === 'code'" @if($preview !== null) x-cloak @endif>
-            <x-code :$language :$code />
+            <x-code :$language>
+{!! $code !!}
+</x-code>
         </div>
 
         @if($preview !== null)
             <div x-show="tabType === 'render'" x-cloak>
-                <x-code language="html" :code="$preview" />
+                <x-code language="html">
+{!! $preview !!}
+</x-code>
             </div>
         @endif
     </div>
