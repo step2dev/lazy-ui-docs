@@ -1449,12 +1449,32 @@ BLADE,
             ->implode(' ');
 
         $parts = $parts !== '' ? ' '.$parts : '';
+        $label = $label ?? 'Example';
+        $parameters = collect($this->parameters)->pluck('name');
 
-        if ($label !== null && collect($this->parameters)->pluck('name')->contains('label')) {
+        if ($parameters->contains('label')) {
             return '<x-lazy-'.$tag.$parts.' label="'.e($label).'" />';
         }
 
-        return '<x-lazy-'.$tag.$parts.' />';
+        return match ($tag) {
+            'kbd' => '<x-lazy-kbd'.$parts.' value="'.e($label).'" />',
+            'radio' => '<label class="inline-flex items-center gap-2"><x-lazy-radio'.$parts.' name="example-radio" /><span>'.e($label).'</span></label>',
+            'toggle' => '<label class="inline-flex items-center gap-2"><x-lazy-toggle'.$parts.' /><span>'.e($label).'</span></label>',
+            'status' => '<span class="inline-flex items-center gap-2"><x-lazy-status'.$parts.' /><span>'.e($label).'</span></span>',
+            'loading' => '<span class="inline-flex items-center gap-2"><x-lazy-loading'.$parts.' /><span>'.e($label).'</span></span>',
+            'range' => '<label class="grid w-64 gap-2"><span>'.e($label).'</span><x-lazy-range'.$parts.' value="50" /></label>',
+            'rating' => '<div class="inline-flex items-center gap-3"><span>'.e($label).'</span><x-lazy-rating'.$parts.' name="rating-'.str($label)->slug().'" /></div>',
+            'input' => '<x-lazy-input'.$parts.' placeholder="'.e($label).'" aria-label="'.e($label).'" />',
+            'select' => '<x-lazy-select'.$parts.' placeholder="'.e($label).'" :options="[\'a\' => \'Option A\', \'b\' => \'Option B\']" />',
+            'textarea' => '<x-lazy-textarea'.$parts.' placeholder="'.e($label).'" aria-label="'.e($label).'" />',
+            'file-input' => '<label class="grid gap-2"><span>'.e($label).'</span><x-lazy-file-input'.$parts.' /></label>',
+            'dock' => '<x-lazy-dock'.$parts.' :items="[[\'label\' => \'Home\', \'active\' => true], [\'label\' => \'Search\']]" />',
+            'menu-list' => '<x-lazy-menu-list'.$parts.'><x-lazy-menu label="'.e($label).'" href="#" /><x-lazy-menu label="Second" href="#" /></x-lazy-menu-list>',
+            'megamenu' => '<x-lazy-megamenu'.$parts.'><span>'.e($label).'</span></x-lazy-megamenu>',
+            'tabs' => '<x-lazy-tabs'.$parts.' :items="[[\'label\' => \'One\', \'active\' => true], [\'label\' => \'Two\']]" />',
+            'indicator' => '<x-lazy-indicator'.$parts.' indicator="1"><button class="btn">'.e($label).'</button></x-lazy-indicator>',
+            default => '<x-lazy-'.$tag.$parts.'>'.e($label).'</x-lazy-'.$tag.'>',
+        };
     }
 
     private function resolveComponentClass(string $tag): ?string
