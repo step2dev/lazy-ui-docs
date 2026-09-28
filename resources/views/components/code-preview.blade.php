@@ -5,6 +5,7 @@
     'code',
     'language' => 'blade',
     'preview' => null,
+    'output' => null,
 ])
 
 <div x-data="{ tabType: {{ $preview !== null ? "'preview'" : "'code'" }} }" id="{{ $id }}" class="mb-8">
@@ -66,7 +67,7 @@
         @if($preview !== null)
             <div x-show="tabType === 'render'" x-cloak>
                 <x-code language="html">
-{!! $preview !!}
+{!! $output ?? $preview !!}
 </x-code>
             </div>
         @endif
