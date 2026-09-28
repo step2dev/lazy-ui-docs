@@ -45,3 +45,23 @@ html {
 .docs-prose code:not(pre code) {
     @apply rounded bg-base-200 px-1.5 py-0.5 text-sm;
 }
+
+
+/* Torchlight code highlighting */
+pre code.torchlight {
+    display: block;
+    min-width: max-content;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: transparent !important;
+}
+
+pre code.torchlight .line {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+pre code.torchlight .line-number,
+pre code.torchlight .summary-caret {
+    margin-right: 1rem;
+}
