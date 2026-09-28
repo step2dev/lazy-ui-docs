@@ -2,11 +2,11 @@
     <div class="mb-10">
         <div class="flex flex-wrap items-center gap-2">
             <span class="badge badge-primary badge-outline">{{ $category }}</span>
-            <span class="badge badge-ghost">x-lazy-{{ $component['tag'] }}</span>
+            <span class="badge badge-ghost">x-lazy-{{ $docComponent['tag'] }}</span>
         </div>
 
-        <h1 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">{{ $component['name'] }}</h1>
-        <p class="mt-4 max-w-3xl text-lg opacity-70">{{ $component['description'] }}</p>
+        <h1 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">{{ $docComponent['name'] }}</h1>
+        <p class="mt-4 max-w-3xl text-lg opacity-70">{{ $docComponent['description'] }}</p>
     </div>
 
     <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
@@ -14,8 +14,8 @@
             <h2>Example</h2>
 
             <x-code-preview
-                :title="$component['name'].' example'"
-                :code="$component['example']"
+                :title="$docComponent['name'].' example'"
+                :code="$docComponent['example']"
             />
 
             @if($slug === 'loading')
