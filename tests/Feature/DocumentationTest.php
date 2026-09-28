@@ -35,6 +35,18 @@ class DocumentationTest extends TestCase
         }
     }
 
+    public function test_every_documented_component_has_variant_examples(): void
+    {
+        foreach (config('docs.categories', []) as $components) {
+            foreach ($components as $slug => $component) {
+                $this->get('/docs/components/'.$slug)
+                    ->assertOk()
+                    ->assertSee('Variants')
+                    ->assertSee($component['name']);
+            }
+        }
+    }
+
     public function test_component_catalog_has_no_duplicate_slugs(): void
     {
         $slugs = collect(config('docs.categories', []))
