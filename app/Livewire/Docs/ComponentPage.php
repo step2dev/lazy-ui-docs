@@ -16,7 +16,7 @@ class ComponentPage extends Component
 
     public string $category;
 
-    public array $component = [];
+    public array $docComponent = [];
 
     public ?string $componentClass = null;
 
@@ -32,8 +32,8 @@ class ComponentPage extends Component
             }
 
             $this->category = $category;
-            $this->component = $components[$slug];
-            $this->componentClass = $this->resolveComponentClass($this->component['tag']);
+            $this->docComponent = $components[$slug];
+            $this->componentClass = $this->resolveComponentClass($this->docComponent['tag']);
             $this->parameters = $this->resolveParameters($this->componentClass);
 
             return;
@@ -46,8 +46,8 @@ class ComponentPage extends Component
     {
         return view('livewire.docs.component-page')
             ->layout('components.layouts.docs', [
-                'title' => $this->component['name'],
-                'description' => $this->component['description'],
+                'title' => $this->docComponent['name'],
+                'description' => $this->docComponent['description'],
             ]);
     }
 
