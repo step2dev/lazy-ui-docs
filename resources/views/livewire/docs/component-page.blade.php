@@ -18,73 +18,15 @@
                 :code="$docComponent['example']"
             />
 
-            @if($slug === 'loading')
+            @if($examples !== [])
                 <h2>Variants</h2>
 
-                <x-code-preview
-                    title="Loading types"
-                    :code="'&lt;div class=&quot;flex flex-wrap gap-4&quot;&gt;
-&lt;x-lazy-loading type=&quot;spinner&quot; /&gt;
-&lt;x-lazy-loading type=&quot;dots&quot; /&gt;
-&lt;x-lazy-loading type=&quot;ring&quot; /&gt;
-&lt;x-lazy-loading type=&quot;ball&quot; /&gt;
-&lt;x-lazy-loading type=&quot;bars&quot; /&gt;
-&lt;x-lazy-loading type=&quot;infinity&quot; /&gt;
-&lt;/div&gt;'"
-                />
-
-                <x-code-preview
-                    title="Loading sizes"
-                    :code="'&lt;div class=&quot;flex items-center gap-4&quot;&gt;
-&lt;x-lazy-loading xs /&gt;
-&lt;x-lazy-loading sm /&gt;
-&lt;x-lazy-loading md /&gt;
-&lt;x-lazy-loading lg /&gt;
-&lt;/div&gt;'"
-                />
-
-                <x-code-preview
-                    title="Loading colors"
-                    :code="'&lt;div class=&quot;flex flex-wrap gap-4&quot;&gt;
-&lt;x-lazy-loading primary /&gt;
-&lt;x-lazy-loading secondary /&gt;
-&lt;x-lazy-loading accent /&gt;
-&lt;x-lazy-loading info /&gt;
-&lt;x-lazy-loading success /&gt;
-&lt;x-lazy-loading warning /&gt;
-&lt;x-lazy-loading error /&gt;
-&lt;/div&gt;'"
-                />
-            @endif
-
-            @if($slug === 'button')
-                <h2>Variants</h2>
-
-                <x-code-preview
-                    title="Button variants"
-                    :code="'&lt;div class=&quot;flex flex-wrap gap-2&quot;&gt;
-&lt;x-lazy-btn primary&gt;Primary&lt;/x-lazy-btn&gt;
-&lt;x-lazy-btn secondary&gt;Secondary&lt;/x-lazy-btn&gt;
-&lt;x-lazy-btn accent&gt;Accent&lt;/x-lazy-btn&gt;
-&lt;x-lazy-btn outline&gt;Outline&lt;/x-lazy-btn&gt;
-&lt;x-lazy-btn ghost&gt;Ghost&lt;/x-lazy-btn&gt;
-&lt;/div&gt;'"
-                />
-            @endif
-
-            @if($slug === 'badge')
-                <h2>Variants</h2>
-
-                <x-code-preview
-                    title="Badge variants"
-                    :code="'&lt;div class=&quot;flex flex-wrap gap-2&quot;&gt;
-&lt;x-lazy-badge primary label=&quot;Primary&quot; /&gt;
-&lt;x-lazy-badge success label=&quot;Success&quot; /&gt;
-&lt;x-lazy-badge warning label=&quot;Warning&quot; /&gt;
-&lt;x-lazy-badge error label=&quot;Error&quot; /&gt;
-&lt;x-lazy-badge outline label=&quot;Outline&quot; /&gt;
-&lt;/div&gt;'"
-                />
+                @foreach($examples as $example)
+                    <x-code-preview
+                        :title="$example['title']"
+                        :code="$example['code']"
+                    />
+                @endforeach
             @endif
 
             <h2>Properties</h2>
