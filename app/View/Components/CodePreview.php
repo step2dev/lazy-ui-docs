@@ -25,8 +25,19 @@ class CodePreview extends LazyComponent
 
             if ($attributes->get('render', true)) {
                 try {
-                    $attributes['preview'] = Blade::render($code, deleteCachedView: true);
-                    $attributes['output'] = trim((string) preg_replace('/<!--.*?-->/s', '', $attributes['preview']));
+                    $wrappedCode = '<div data-doc-preview-root class="contents">'.$code.'</div>';
+                    $rendered = Blade::render($wrappedCode, deleteCachedView: true);
+
+                    $attributes['preview'] = $rendered;
+                    $attributes['output'] = trim((string) preg_replace(
+                        [
+                            '/<!--.*?-->/s',
+                            '/^<div data-doc-preview-root class="contents">/s',
+                            '/<\/div>$/s',
+                        ],
+                        '',
+                        trim($rendered)
+                    ));
                 } catch (\Throwable) {
                     // Some documentation snippets intentionally contain application variables.
                     // Keep those examples highlighted without breaking the documentation page.
