@@ -3,11 +3,11 @@
         <div class="flex flex-wrap items-center gap-2">
             <span class="badge badge-primary badge-outline">{{ $category }}</span>
             <span class="badge badge-ghost">x-lazy-{{ $component['tag'] }}</span>
-        </div>
+        &lt;/div&gt;
 
         <h1 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">{{ $component['name'] }}</h1>
         <p class="mt-4 max-w-3xl text-lg opacity-70">{{ $component['description'] }}</p>
-    </div>
+    &lt;/div&gt;
 
     <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div class="min-w-0">
@@ -23,37 +23,37 @@
 
                 <x-code-preview
                     title="Loading types"
-                    :code="'<div class=&quot;flex flex-wrap gap-4&quot;>
-<x-lazy-loading type=&quot;spinner&quot; />
-<x-lazy-loading type=&quot;dots&quot; />
-<x-lazy-loading type=&quot;ring&quot; />
-<x-lazy-loading type=&quot;ball&quot; />
-<x-lazy-loading type=&quot;bars&quot; />
-<x-lazy-loading type=&quot;infinity&quot; />
-</div>'"
+                    :code="'&lt;div class=&quot;flex flex-wrap gap-4&quot;&gt;
+&lt;x-lazy-loading type=&quot;spinner&quot; /&gt;
+&lt;x-lazy-loading type=&quot;dots&quot; /&gt;
+&lt;x-lazy-loading type=&quot;ring&quot; /&gt;
+&lt;x-lazy-loading type=&quot;ball&quot; /&gt;
+&lt;x-lazy-loading type=&quot;bars&quot; /&gt;
+&lt;x-lazy-loading type=&quot;infinity&quot; /&gt;
+&lt;/div&gt;'"
                 />
 
                 <x-code-preview
                     title="Loading sizes"
-                    :code="'<div class=&quot;flex items-center gap-4&quot;>
-<x-lazy-loading xs />
-<x-lazy-loading sm />
-<x-lazy-loading md />
-<x-lazy-loading lg />
-</div>'"
+                    :code="'&lt;div class=&quot;flex items-center gap-4&quot;&gt;
+&lt;x-lazy-loading xs /&gt;
+&lt;x-lazy-loading sm /&gt;
+&lt;x-lazy-loading md /&gt;
+&lt;x-lazy-loading lg /&gt;
+&lt;/div&gt;'"
                 />
 
                 <x-code-preview
                     title="Loading colors"
-                    :code="'<div class=&quot;flex flex-wrap gap-4&quot;>
-<x-lazy-loading primary />
-<x-lazy-loading secondary />
-<x-lazy-loading accent />
-<x-lazy-loading info />
-<x-lazy-loading success />
-<x-lazy-loading warning />
-<x-lazy-loading error />
-</div>'"
+                    :code="'&lt;div class=&quot;flex flex-wrap gap-4&quot;&gt;
+&lt;x-lazy-loading primary /&gt;
+&lt;x-lazy-loading secondary /&gt;
+&lt;x-lazy-loading accent /&gt;
+&lt;x-lazy-loading info /&gt;
+&lt;x-lazy-loading success /&gt;
+&lt;x-lazy-loading warning /&gt;
+&lt;x-lazy-loading error /&gt;
+&lt;/div&gt;'"
                 />
             @endif
 
@@ -62,13 +62,13 @@
 
                 <x-code-preview
                     title="Button variants"
-                    :code="'<div class=&quot;flex flex-wrap gap-2&quot;>
-<x-lazy-btn primary>Primary</x-lazy-btn>
-<x-lazy-btn secondary>Secondary</x-lazy-btn>
-<x-lazy-btn accent>Accent</x-lazy-btn>
-<x-lazy-btn outline>Outline</x-lazy-btn>
-<x-lazy-btn ghost>Ghost</x-lazy-btn>
-</div>'"
+                    :code="'&lt;div class=&quot;flex flex-wrap gap-2&quot;&gt;
+&lt;x-lazy-btn primary&gt;Primary&lt;/x-lazy-btn&gt;
+&lt;x-lazy-btn secondary&gt;Secondary&lt;/x-lazy-btn&gt;
+&lt;x-lazy-btn accent&gt;Accent&lt;/x-lazy-btn&gt;
+&lt;x-lazy-btn outline&gt;Outline&lt;/x-lazy-btn&gt;
+&lt;x-lazy-btn ghost&gt;Ghost&lt;/x-lazy-btn&gt;
+&lt;/div&gt;'"
                 />
             @endif
 
@@ -77,13 +77,13 @@
 
                 <x-code-preview
                     title="Badge variants"
-                    :code="'<div class=&quot;flex flex-wrap gap-2&quot;>
-<x-lazy-badge primary label=&quot;Primary&quot; />
-<x-lazy-badge success label=&quot;Success&quot; />
-<x-lazy-badge warning label=&quot;Warning&quot; />
-<x-lazy-badge error label=&quot;Error&quot; />
-<x-lazy-badge outline label=&quot;Outline&quot; />
-</div>'"
+                    :code="'&lt;div class=&quot;flex flex-wrap gap-2&quot;&gt;
+&lt;x-lazy-badge primary label=&quot;Primary&quot; /&gt;
+&lt;x-lazy-badge success label=&quot;Success&quot; /&gt;
+&lt;x-lazy-badge warning label=&quot;Warning&quot; /&gt;
+&lt;x-lazy-badge error label=&quot;Error&quot; /&gt;
+&lt;x-lazy-badge outline label=&quot;Outline&quot; /&gt;
+&lt;/div&gt;'"
                 />
             @endif
 
@@ -111,7 +111,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                </div>
+                &lt;/div&gt;
             @else
                 <p>This component has no public constructor properties. Use the slot and forwarded HTML attributes.</p>
             @endif
@@ -134,21 +134,21 @@
                     <tr><th>daisyUI</th><td>5.x</td></tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
+            &lt;/div&gt;
+        &lt;/div&gt;
 
         <aside class="h-fit rounded-box border border-base-300 bg-base-200/40 p-5 xl:sticky xl:top-24">
             <h3 class="mt-0 text-base">Reference</h3>
 
             @if($componentClass)
-                <div class="mb-4 break-all text-xs opacity-60">{{ $componentClass }}</div>
+                <div class="mb-4 break-all text-xs opacity-60">{{ $componentClass }}&lt;/div&gt;
             @endif
 
             <div class="flex flex-col gap-2">
                 <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/src/Components" target="_blank" rel="noopener">PHP components</a>
                 <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/resources/views" target="_blank" rel="noopener">Blade views</a>
                 <a class="link link-primary" href="https://daisyui.com/components/" target="_blank" rel="noopener">daisyUI components</a>
-            </div>
+            &lt;/div&gt;
         </aside>
-    </div>
+    &lt;/div&gt;
 </article>
