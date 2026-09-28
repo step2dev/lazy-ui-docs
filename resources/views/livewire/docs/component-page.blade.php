@@ -3,11 +3,11 @@
         <div class="flex flex-wrap items-center gap-2">
             <span class="badge badge-primary badge-outline">{{ $category }}</span>
             <span class="badge badge-ghost">x-lazy-{{ $component['tag'] }}</span>
-        &lt;/div&gt;
+        </div>
 
         <h1 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">{{ $component['name'] }}</h1>
         <p class="mt-4 max-w-3xl text-lg opacity-70">{{ $component['description'] }}</p>
-    &lt;/div&gt;
+    </div>
 
     <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div class="min-w-0">
@@ -111,7 +111,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                &lt;/div&gt;
+                </div>
             @else
                 <p>This component has no public constructor properties. Use the slot and forwarded HTML attributes.</p>
             @endif
@@ -134,21 +134,21 @@
                     <tr><th>daisyUI</th><td>5.x</td></tr>
                     </tbody>
                 </table>
-            &lt;/div&gt;
-        &lt;/div&gt;
+            </div>
+        </div>
 
         <aside class="h-fit rounded-box border border-base-300 bg-base-200/40 p-5 xl:sticky xl:top-24">
             <h3 class="mt-0 text-base">Reference</h3>
 
             @if($componentClass)
-                <div class="mb-4 break-all text-xs opacity-60">{{ $componentClass }}&lt;/div&gt;
+                <div class="mb-4 break-all text-xs opacity-60">{{ $componentClass }}</div>
             @endif
 
             <div class="flex flex-col gap-2">
                 <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/src/Components" target="_blank" rel="noopener">PHP components</a>
                 <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/resources/views" target="_blank" rel="noopener">Blade views</a>
                 <a class="link link-primary" href="https://daisyui.com/components/" target="_blank" rel="noopener">daisyUI components</a>
-            &lt;/div&gt;
+            </div>
         </aside>
-    &lt;/div&gt;
+    </div>
 </article>
