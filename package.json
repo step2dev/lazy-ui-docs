@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "test:css": "node scripts/assert-docs-css.mjs"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.10",
