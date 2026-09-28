@@ -20,10 +20,15 @@ class CodePreview extends LazyComponent
             $code = html_entity_decode((string) $attributes->get('code', (string) $data['slot']));
             $attributes['code'] = $code;
 
+            $attributes['preview'] = null;
+
             if ($attributes->get('render', true)) {
-                $attributes['preview'] = Blade::render($code, deleteCachedView: true);
-            } else {
-                $attributes['preview'] = null;
+                try {
+                    $attributes['preview'] = Blade::render($code, deleteCachedView: true);
+                } catch (\Throwable) {
+                    // Some documentation snippets intentionally contain application variables.
+                    // Keep those examples highlighted without breaking the documentation page.
+                }
             }
 
             $data['attributes'] = $attributes;
