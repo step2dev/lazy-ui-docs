@@ -64,9 +64,5 @@
                 </div>
             </main>
         </div>
-
-        <footer class="border-t border-base-300 px-6 py-8 text-center text-sm opacity-70">
-            Lazy UI 2.x · Laravel 12/13 · Livewire 4 · Tailwind CSS 4 · daisyUI 5
-        </footer>
     </div>
 </x-layouts.guest>
