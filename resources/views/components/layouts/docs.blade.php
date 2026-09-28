@@ -65,4 +65,13 @@
             </main>
         </div>
     </div>
+
+    <footer class="border-t border-base-300 bg-base-100 px-6 py-6">
+        <div class="mx-auto max-w-screen-2xl text-sm opacity-60">
+            Code highlighting provided by
+            <x-lazy-link hover href="https://torchlight.dev" target="_blank" rel="nofollow">
+                Torchlight
+            </x-lazy-link>
+        </div>
+    </footer>
 </x-layouts.guest>
