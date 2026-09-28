@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Blade;
 use Tests\TestCase;
 
 class DocumentationTest extends TestCase
@@ -38,8 +39,29 @@ class DocumentationTest extends TestCase
     {
         $categories = array_keys(config('docs.categories', []));
 
-        foreach (['Actions', 'Data display', 'Navigation', 'Feedback', 'Inputs', 'Forms', 'Layout', 'Mockup'] as $category) {
+        foreach (['Actions', 'Data display', 'Navigation', 'Feedback', 'Inputs', 'Forms', 'Layout', 'Mockup', 'Widgets'] as $category) {
             $this->assertContains($category, $categories);
         }
+    }
+
+    public function test_every_registered_lazy_ui_component_is_documented(): void
+    {
+        $documentedAliases = collect(config('docs.categories', []))
+            ->flatMap(fn (array $components): array => collect($components)
+                ->pluck('tag')
+                ->map(fn (string $tag): string => 'lazy-'.$tag)
+                ->all())
+            ->unique()
+            ->values();
+
+        $registeredAliases = collect(Blade::getClassComponentAliases())
+            ->keys()
+            ->filter(fn (string $alias): bool => str_starts_with($alias, 'lazy-'))
+            ->unique()
+            ->values();
+
+        $missing = $registeredAliases->diff($documentedAliases)->values();
+
+        $this->assertSame([], $missing->all(), 'Undocumented Lazy UI components: '.$missing->implode(', '));
     }
 }
