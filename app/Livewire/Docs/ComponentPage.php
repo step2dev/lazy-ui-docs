@@ -61,19 +61,23 @@ class ComponentPage extends Component
         $tag = $this->docComponent['tag'];
         $parameterNames = collect($this->parameters)->pluck('name');
 
-        if ($parameterNames->contains('color')) {
+        $colors = $this->supportedColors($slug);
+
+        if ($colors !== []) {
             $examples[] = [
                 'title' => 'Colors',
-                'code' => collect(['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'])
+                'code' => collect($colors)
                     ->map(fn (string $color): string => $this->exampleTag($tag, [$color => true], ucfirst($color)))
                     ->implode("\n"),
             ];
         }
 
-        if ($parameterNames->contains('size')) {
+        $sizes = $this->supportedSizes($slug);
+
+        if ($sizes !== []) {
             $examples[] = [
                 'title' => 'Sizes',
-                'code' => collect(['xs', 'sm', 'md', 'lg', 'xl'])
+                'code' => collect($sizes)
                     ->map(fn (string $size): string => $this->exampleTag($tag, [$size => true], strtoupper($size)))
                     ->implode("\n"),
             ];
@@ -103,44 +107,35 @@ class ComponentPage extends Component
         return $examples;
     }
 
+    private function supportedColors(string $slug): array
+    {
+        $standard = ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'];
+
+        return match ($slug) {
+            'button' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger', 'link'],
+            'badge' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger'],
+            'alert' => ['info', 'success', 'warning', 'error', 'danger'],
+            'chat', 'tooltip', 'rating' => ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
+            'input', 'select', 'textarea' => [...$standard, 'ghost', 'no-border'],
+            'checkbox', 'file-input', 'otp', 'radio', 'range', 'status', 'step', 'loading', 'progress', 'radial', 'indicator', 'toggle' => $standard,
+            'link' => $standard,
+            default => [],
+        };
+    }
+
+    private function supportedSizes(string $slug): array
+    {
+        return match ($slug) {
+            'button', 'badge', 'loading', 'kbd', 'checkbox', 'file-input', 'otp', 'radio', 'range',
+            'rating', 'select', 'status', 'tabs', 'textarea', 'toggle', 'indicator', 'menu-list',
+            'dock', 'megamenu' => ['xs', 'sm', 'md', 'lg', 'xl'],
+            default => [],
+        };
+    }
+
     private function exhaustiveCommonExamples(string $slug, string $tag, \Illuminate\Support\Collection $parameterNames): array
     {
         $examples = [];
-
-        $forcedColors = [
-            'button' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger', 'link'],
-            'badge' => ['neutral', 'primary', 'secondary', 'accent', 'ghost', 'info', 'success', 'warning', 'error', 'danger'],
-            'alert' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'danger'],
-            'link' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-            'chat' => ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-            'tooltip' => ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'],
-            'input' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
-            'select' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
-            'textarea' => ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'ghost', 'no-border'],
-        ];
-
-        $forcedSizes = [
-            'button' => ['xs', 'sm', 'md', 'lg', 'xl'],
-            'badge' => ['xs', 'sm', 'md', 'lg', 'xl'],
-        ];
-
-        if (isset($forcedColors[$slug]) && ! $parameterNames->contains('color')) {
-            $examples[] = [
-                'title' => 'Colors',
-                'code' => collect($forcedColors[$slug])
-                    ->map(fn (string $color): string => $this->exampleTag($tag, [$color => true], ucfirst($color)))
-                    ->implode("\n"),
-            ];
-        }
-
-        if (isset($forcedSizes[$slug]) && ! $parameterNames->contains('size')) {
-            $examples[] = [
-                'title' => 'Sizes',
-                'code' => collect($forcedSizes[$slug])
-                    ->map(fn (string $size): string => $this->exampleTag($tag, [$size => true], strtoupper($size)))
-                    ->implode("\n"),
-            ];
-        }
 
         $enumOptions = $this->enumOptions($slug);
 
