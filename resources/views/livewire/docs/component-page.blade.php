@@ -64,7 +64,7 @@
 
         </div>
 
-        <aside class="h-fit rounded-box border border-base-300 bg-base-200/40 p-5 xl:sticky xl:top-24">
+        <aside class="h-fit self-start rounded-box border border-base-300 bg-base-200/40 p-5">
             <h3 class="mt-0 text-base">Reference</h3>
 
             @if($componentClass)
