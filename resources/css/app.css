@@ -65,3 +65,33 @@ pre code.torchlight .line-number,
 pre code.torchlight .summary-caret {
     margin-right: 1rem;
 }
+
+
+/* Keep viewport-positioned components visible inside documentation previews. */
+.docs-preview .dock,
+.docs-preview .fab,
+.docs-preview .toast {
+    position: static !important;
+    inset: auto !important;
+    width: auto;
+    max-width: 100%;
+}
+
+.docs-preview .dock {
+    min-width: min(32rem, 100%);
+    border: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+    border-radius: var(--radius-box);
+}
+
+.docs-preview .fab {
+    margin: 0;
+}
+
+.docs-preview .modal {
+    position: static !important;
+    inset: auto !important;
+    width: min(36rem, 100%);
+    max-width: 100%;
+    min-height: 0;
+    background: transparent;
+}
