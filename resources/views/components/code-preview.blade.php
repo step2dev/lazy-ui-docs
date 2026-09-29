@@ -1,50 +1,56 @@
 @props([
     'title' => '',
+    'description' => '',
     'id',
     'href' => '#',
     'code',
     'language' => 'blade',
-    'preview',
+    'preview' => null,
+    'output' => null,
 ])
-<div x-data="{ tabType: 'preview' }" id="{{ $id }}" class="mb-2">
-    <div class="flex justify-between items-center">
-        <a href="{{ $href }}" class="truncate font-medium pr-2">
-            {{ $title }}
+
+<section id="{{ $id }}" class="mb-12 scroll-mt-24">
+    <div class="mb-4">
+        <a href="{{ $href }}" class="group inline-flex items-center gap-2 text-xl font-semibold">
+            <span>{{ $title }}</span>
+            <span class="opacity-0 transition-opacity group-hover:opacity-40">#</span>
         </a>
-        <x-lazy-tabs size="lg" type="lifted">
-            <x-lazy-tab
-                x-bind:class="tabType === 'preview' && 'tab-active'"
-                x-on:click="tabType = 'preview'"
-            >
-                Preview
-            </x-lazy-tab>
-            <x-lazy-tab
-                x-bind:class="tabType === 'code' &&  'tab-active'"
-                x-on:click="tabType = 'code'"
-            >
-                Code
-            </x-lazy-tab>
-            <x-lazy-tab
-                x-bind:class="tabType === 'render' && 'tab-active'"
-                x-on:click="tabType = 'render'"
-            >
-                Output
-            </x-lazy-tab>
-        </x-lazy-tabs>
+
+        @if($description)
+            <p class="mt-2 max-w-3xl text-sm leading-6 opacity-70">{{ $description }}</p>
+        @endif
     </div>
-    <div class="border-base-300 bg-base-100 rounded-b-box rounded-tl-box flex min-h-[6rem] min-w-[18rem] flex-wrap items-center justify-center gap-2 overflow-x-hidden border bg-cover bg-top p-4 undefined mt-[-1px]">
-        <div x-bind:class="tabType === 'preview' || 'hidden'">
-            {!! $preview !!}
-        </div>
-        <div x-bind:class="tabType === 'code' || 'hidden' " class="w-full">
-            <x-code :$language>
-                {!! $code !!}
-            </x-code>
-        </div>
-        <div x-bind:class="tabType === 'render' || 'hidden' " class="w-full">
-            <x-code :$language>
+
+    @if($preview !== null)
+        <div class="rounded-t-box border border-base-300 bg-base-100">
+            <div class="docs-preview flex min-h-40 flex-wrap items-center justify-center gap-4 overflow-x-auto p-6 sm:p-8">
                 {!! $preview !!}
-            </x-code>
+            </div>
         </div>
+    @endif
+
+    <div @class([
+        'overflow-hidden border border-base-300 bg-neutral text-neutral-content',
+        'rounded-box' => $preview === null,
+        'rounded-b-box border-t-0' => $preview !== null,
+    ])>
+        <div class="flex items-center justify-between border-b border-base-content/10 px-4 py-2 text-xs">
+            <span class="font-medium uppercase tracking-wide opacity-60">Blade</span>
+        </div>
+
+        <x-code :$language>
+{!! $code !!}
+</x-code>
     </div>
-</div>
+
+    @if($output !== null)
+        <details class="mt-3 rounded-box border border-base-300 bg-base-100">
+            <summary class="cursor-pointer px-4 py-3 text-sm font-medium">Rendered HTML</summary>
+            <div class="border-t border-base-300">
+                <x-code language="html">
+{!! $output !!}
+</x-code>
+            </div>
+        </details>
+    @endif
+</section>

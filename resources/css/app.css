@@ -1,36 +1,97 @@
-@import "../scss/lazy.scss";
+@import "tailwindcss";
+@import "../../vendor/step2dev/lazy-ui/resources/css/lazy.css";
 
-/*
- Margin and rounding are personal preferences,
- overflow-x-auto is recommended.
-*/
-pre {
-    @apply my-4 rounded overflow-x-auto;
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+@source "../../app/**/*.php";
+@source "../../config/docs.php";
+@source "../../vendor/step2dev/lazy-ui/src/**/*.php";
+@source "../../vendor/step2dev/lazy-ui/resources/views/**/*.blade.php";
+@source "../../vendor/step2dev/lazy-ui/resources/js/**/*.js";
+
+@plugin "@tailwindcss/forms" {
+    strategy: "class";
 }
 
-/*
- Add some vertical padding and expand the width
- to fill its container. The horizontal padding
- comes at the line level so that background
- colors extend edge to edge.
-*/
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, cupcake, bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid, lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss, silk;
+    logs: false;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.docs-code {
+    @apply overflow-x-auto rounded-box bg-neutral p-4 text-sm text-neutral-content;
+}
+
+.docs-prose h2 {
+    @apply mt-10 mb-4 text-2xl font-bold;
+}
+
+.docs-prose h3 {
+    @apply mt-8 mb-3 text-xl font-semibold;
+}
+
+.docs-prose p {
+    @apply my-3 leading-7;
+}
+
+.docs-prose code:not(pre code) {
+    @apply rounded bg-base-200 px-1.5 py-0.5 text-sm;
+}
+
+
+/* Torchlight code highlighting */
 pre code.torchlight {
-    @apply block py-4 min-w-max;
+    display: block;
+    min-width: max-content;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background: transparent !important;
 }
 
-/*
- Horizontal line padding.
-*/
 pre code.torchlight .line {
-    @apply px-4;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/*
- Push the code away from the line numbers and
- summary caret indicators.
-*/
 pre code.torchlight .line-number,
 pre code.torchlight .summary-caret {
-    @apply mr-4;
+    margin-right: 1rem;
+}
+
+
+/* Keep viewport-positioned components visible inside documentation previews. */
+.docs-preview .dock,
+.docs-preview .fab,
+.docs-preview .toast {
+    position: static !important;
+    inset: auto !important;
+    width: auto;
+    max-width: 100%;
+}
+
+.docs-preview .dock {
+    min-width: min(32rem, 100%);
+    border: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+    border-radius: var(--radius-box);
+}
+
+.docs-preview .fab {
+    margin: 0;
+}
+
+.docs-preview .modal {
+    position: static !important;
+    inset: auto !important;
+    width: min(36rem, 100%);
+    max-width: 100%;
+    min-height: 0;
+    background: transparent;
 }

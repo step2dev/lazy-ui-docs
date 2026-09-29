@@ -1,10 +1,14 @@
 <?php
 
-use App\Livewire\Docs\GetStarted;
-use App\Livewire\Docs\Loading;
-use App\Livewire\Docs\RichText;
+use App\Livewire\Docs\ComponentPage;
+use App\Livewire\Docs\Guide;
+use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', 'docs/getting-started');
-Route::get('getting-started', GetStarted::class)->name('getting-started');
-Route::get('loading', Loading::class)->name('loading');
-Route::get('richtext', RichText::class)->name('richtext');
+Route::redirect('/', '/docs/getting-started');
+
+Route::get('{page}', Guide::class)
+    ->whereIn('page', ['getting-started', 'upgrade', 'themes', 'livewire'])
+    ->name('guide');
+
+Route::get('components/{slug}', ComponentPage::class)
+    ->name('component');
