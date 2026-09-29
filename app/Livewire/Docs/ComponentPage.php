@@ -150,7 +150,7 @@ class ComponentPage extends Component
     private function supportedSizes(string $slug): array
     {
         return match ($slug) {
-            'button', 'badge', 'loading', 'kbd', 'checkbox', 'file-input', 'otp', 'radio', 'range',
+            'button', 'badge', 'aura', 'loading', 'kbd', 'checkbox', 'file-input', 'otp', 'radio', 'range',
             'rating', 'select', 'status', 'tabs', 'textarea', 'toggle', 'indicator', 'menu-list',
             'dock', 'megamenu' => ['xs', 'sm', 'md', 'lg', 'xl'],
             default => [],
@@ -206,9 +206,6 @@ class ComponentPage extends Component
             'accordion' => [
                 'type' => ['plus', 'arrow'],
             ],
-            'aura' => [
-                'type' => ['dual', 'rainbow', 'holo', 'gold', 'silver'],
-            ],
             'calendar' => [
                 'driver' => ['native', 'cally', 'vc', 'react-day-picker'],
             ],
@@ -237,13 +234,6 @@ class ComponentPage extends Component
             ],
             'loading' => [
                 'type' => ['spinner', 'dots', 'ring', 'ball', 'bars', 'infinity'],
-            ],
-            'mask' => [
-                'shape' => [
-                    'squircle', 'heart', 'hexagon', 'hexagon-2', 'decagon', 'pentagon', 'diamond', 'circle',
-                    'star', 'star-2', 'triangle', 'triangle-2', 'triangle-3', 'triangle-4', 'square',
-                    'parallelogram', 'parallelogram-2', 'parallelogram-3', 'parallelogram-4',
-                ],
             ],
             'rating' => [
                 'mask' => ['star-2', 'star', 'heart'],
@@ -396,15 +386,41 @@ BLADE,
 BLADE,
             ]],
             'aura' => [[
-                'title' => 'Aura types',
+                'title' => 'Aura around a card',
+                'description' => 'Aura is a wrapper effect. Put real content such as a card, button or image inside it.',
                 'code' => <<<'BLADE'
-<div class="flex flex-wrap gap-4">
-    <x-lazy-aura type="dual">Dual</x-lazy-aura>
-    <x-lazy-aura type="rainbow">Rainbow</x-lazy-aura>
-    <x-lazy-aura type="holo">Holo</x-lazy-aura>
-    <x-lazy-aura type="gold">Gold</x-lazy-aura>
-    <x-lazy-aura type="silver">Silver</x-lazy-aura>
-    <x-lazy-aura type="rainbow" glow>Glow</x-lazy-aura>
+<x-lazy-aura>
+    <div class="card w-72 bg-base-100 shadow">
+        <div class="card-body">
+            <h3 class="card-title">Default aura</h3>
+            <p>Highlight important content with an animated border effect.</p>
+        </div>
+    </div>
+</x-lazy-aura>
+BLADE,
+            ], [
+                'title' => 'Aura styles',
+                'description' => 'Each aura style is shown around the same card so the visual difference is easy to compare.',
+                'code' => <<<'BLADE'
+<div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <x-lazy-aura type="dual">
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Dual</strong></div></div>
+    </x-lazy-aura>
+    <x-lazy-aura type="rainbow">
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Rainbow</strong></div></div>
+    </x-lazy-aura>
+    <x-lazy-aura type="holo">
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Holo</strong></div></div>
+    </x-lazy-aura>
+    <x-lazy-aura type="gold">
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Gold</strong></div></div>
+    </x-lazy-aura>
+    <x-lazy-aura type="silver">
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Silver</strong></div></div>
+    </x-lazy-aura>
+    <x-lazy-aura type="rainbow" glow>
+        <div class="card bg-base-100 shadow"><div class="card-body"><strong>Glow</strong></div></div>
+    </x-lazy-aura>
 </div>
 BLADE,
             ]],
@@ -548,27 +564,21 @@ BLADE,
             ]],
             'mask' => [[
                 'title' => 'Mask shapes',
+                'description' => 'Every shape uses the same local image and a visible label, making differences easy to compare.',
                 'code' => <<<'BLADE'
-<div class="grid grid-cols-3 gap-4 md:grid-cols-5">
-    <x-lazy-mask shape="squircle"><img src="https://picsum.photos/100" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="heart"><img src="https://picsum.photos/101" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="hexagon"><img src="https://picsum.photos/102" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="hexagon-2"><img src="https://picsum.photos/103" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="decagon"><img src="https://picsum.photos/104" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="pentagon"><img src="https://picsum.photos/105" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="diamond"><img src="https://picsum.photos/106" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="circle"><img src="https://picsum.photos/107" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="star"><img src="https://picsum.photos/108" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="star-2"><img src="https://picsum.photos/109" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="triangle"><img src="https://picsum.photos/110" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="triangle-2"><img src="https://picsum.photos/111" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="triangle-3"><img src="https://picsum.photos/112" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="triangle-4"><img src="https://picsum.photos/113" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="square"><img src="https://picsum.photos/114" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="parallelogram"><img src="https://picsum.photos/115" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="parallelogram-2"><img src="https://picsum.photos/116" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="parallelogram-3"><img src="https://picsum.photos/117" alt="" /></x-lazy-mask>
-    <x-lazy-mask shape="parallelogram-4"><img src="https://picsum.photos/118" alt="" /></x-lazy-mask>
+<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+    @foreach ([
+        'squircle', 'heart', 'hexagon', 'hexagon-2', 'decagon', 'pentagon', 'diamond', 'circle',
+        'star', 'star-2', 'triangle', 'triangle-2', 'triangle-3', 'triangle-4', 'square',
+        'parallelogram', 'parallelogram-2', 'parallelogram-3', 'parallelogram-4',
+    ] as $shape)
+        <div class="text-center">
+            <x-lazy-mask :shape="$shape" class="mx-auto size-28">
+                <img src="/images/docs/sample-blue.svg" alt="{{ $shape }}" class="h-full w-full object-cover" />
+            </x-lazy-mask>
+            <div class="mt-2 text-xs font-medium">{{ $shape }}</div>
+        </div>
+    @endforeach
 </div>
 BLADE,
             ]],
@@ -776,9 +786,9 @@ BLADE,
                 'title' => 'Avatar states',
                 'code' => <<<'BLADE'
 <div class="flex items-center gap-4">
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?1" alt="User" />
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?2" alt="Online" online-enabled />
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?3" alt="Offline" offline-enabled />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-orange.svg" alt="User" />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-blue.svg" alt="Online" online-enabled />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-purple.svg" alt="Offline" offline-enabled />
     <x-lazy-avatar class="w-12 rounded-full bg-neutral text-neutral-content" :src="null" placeholder-enabled>UI</x-lazy-avatar>
 </div>
 BLADE,
@@ -787,9 +797,9 @@ BLADE,
                 'title' => 'Avatar group spacing',
                 'code' => <<<'BLADE'
 <x-lazy-avatar-group spacing="6">
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?11" />
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?12" />
-    <x-lazy-avatar class="w-12 rounded-full" src="https://picsum.photos/100/100?13" />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-green.svg" />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-orange.svg" />
+    <x-lazy-avatar class="w-12 rounded-full" src="/images/docs/sample-blue.svg" />
 </x-lazy-avatar-group>
 BLADE,
             ]],
@@ -850,16 +860,16 @@ BLADE,
                 'title' => 'Hover gallery images',
                 'code' => <<<'BLADE'
 <x-lazy-hover-gallery :images="[
-    ['src' => 'https://picsum.photos/400/300?1', 'alt' => 'Image 1'],
-    ['src' => 'https://picsum.photos/400/300?2', 'alt' => 'Image 2'],
-    ['src' => 'https://picsum.photos/400/300?3', 'alt' => 'Image 3'],
+    ['src' => '/images/docs/sample-purple.svg', 'alt' => 'Image 1'],
+    ['src' => '/images/docs/sample-green.svg', 'alt' => 'Image 2'],
+    ['src' => '/images/docs/sample-orange.svg', 'alt' => 'Image 3'],
 ]" />
 BLADE,
             ]],
             'image' => [[
                 'title' => 'Image usage',
                 'code' => <<<'BLADE'
-<x-lazy-image src="https://picsum.photos/640/360" alt="Landscape" class="rounded-box w-80" />
+<x-lazy-image src="/images/docs/sample-blue.svg" alt="Landscape" class="rounded-box w-80" />
 BLADE,
             ]],
             'kbd' => [[
@@ -1397,7 +1407,7 @@ BLADE,
                 'code' => <<<'BLADE'
 <x-lazy-form-image name="photo" label="Photo" />
 <x-lazy-form-image name="avatar" label="Avatar" required help="PNG or JPG" />
-<x-lazy-form-image name="cover" label="Cover" src="/images/cover.jpg" outer-class="max-w-lg" />
+<x-lazy-form-image name="cover" label="Cover" src="/images/docs/sample-purple.svg" outer-class="max-w-lg" />
 BLADE,
             ]],
             'form-richtext' => [[
