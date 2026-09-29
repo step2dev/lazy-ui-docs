@@ -47,6 +47,27 @@ class DocumentationTest extends TestCase
         }
     }
 
+    public function test_structural_variant_previews_are_not_empty(): void
+    {
+        $cases = [
+            'tabs' => ['Overview', 'Details'],
+            'aura' => ['Aura preview'],
+            'indicator' => ['Inbox'],
+            'dock' => ['Home', 'Search', 'Profile'],
+            'menu-list' => ['Second item'],
+            'megamenu' => ['Docs', 'Blog', 'About'],
+            'join' => ['Previous', 'Current', 'Next'],
+        ];
+
+        foreach ($cases as $slug => $expected) {
+            $response = $this->get('/docs/components/'.$slug)->assertOk();
+
+            foreach ($expected as $text) {
+                $response->assertSee($text);
+            }
+        }
+    }
+
     public function test_component_catalog_has_no_duplicate_slugs(): void
     {
         $slugs = collect(config('docs.categories', []))
