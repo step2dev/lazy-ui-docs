@@ -70,7 +70,7 @@ return [
             'progress' => ['name' => 'Progress', 'tag' => 'progress', 'description' => 'Linear progress indicator.', 'example' => '<x-lazy-progress primary :value="70" max="100" />'],
             'radial' => ['name' => 'Radial Progress', 'tag' => 'radial', 'description' => 'Circular progress indicator.', 'example' => '<x-lazy-radial :value="70">70%</x-lazy-radial>'],
             'skeleton' => ['name' => 'Skeleton', 'tag' => 'skeleton', 'description' => 'Loading placeholder.', 'example' => '<x-lazy-skeleton class="h-8 w-40" />'],
-            'toast' => ['name' => 'Toast', 'tag' => 'toast', 'description' => 'Toast container used by Lazy UI notifications.', 'example' => '<x-lazy-toast /><div class="alert alert-success shadow-lg"><span>Saved successfully.</span></div>'],
+            'toast' => ['name' => 'Toast', 'tag' => 'toast', 'description' => 'Toast container used by Lazy UI notifications.', 'example' => '<div class="flex flex-wrap gap-2"><button class="btn btn-success" type="button" onclick="window.toast?.success(\'Saved successfully.\')">Success toast</button><button class="btn btn-error" type="button" onclick="window.toast?.error(\'Something went wrong.\')">Error toast</button></div><x-lazy-toast />'],
             'tooltip' => ['name' => 'Tooltip', 'tag' => 'tooltip', 'description' => 'Tooltip around arbitrary content.', 'example' => '<x-lazy-tooltip tip="Help" top><button>?</button></x-lazy-tooltip>'],
             'error' => ['name' => 'Error', 'tag' => 'error', 'description' => 'Validation/error feedback.', 'example' => '<x-lazy-error message="Something went wrong" />'],
         ],
