@@ -22,7 +22,12 @@
         </header>
 
         <div class="mx-auto grid max-w-screen-2xl grid-cols-1 lg:grid-cols-[18rem_minmax(0,1fr)]">
-            <aside class="border-r border-base-300 bg-base-100 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:overflow-y-auto">
+            <aside
+                class="border-r border-base-300 bg-base-100 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:overflow-y-auto"
+                x-data
+                x-init="$el.scrollTop = Number(sessionStorage.getItem('lazyui-docs-sidebar-scroll') || 0)"
+                @scroll.passive="sessionStorage.setItem('lazyui-docs-sidebar-scroll', $el.scrollTop)"
+            >
                 <nav class="p-4">
                     <div class="mb-6">
                         <div class="mb-2 text-xs font-bold uppercase tracking-wider opacity-50">Guides</div>
