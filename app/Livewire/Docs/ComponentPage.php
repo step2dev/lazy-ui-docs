@@ -672,35 +672,16 @@ BLADE,
                 'description' => 'Click a button to create a real Lazy UI toast through the global toast API.',
                 'code' => <<<'BLADE'
 <div class="flex flex-wrap gap-2">
-    <button
-        type="button"
-        class="btn btn-success"
-        onclick="window.toast?.success('Saved successfully.')"
-    >
+    <button type="button" class="btn btn-success" onclick="window.toast?.success('Saved successfully.')">
         Success toast
     </button>
-
-    <button
-        type="button"
-        class="btn btn-error"
-        onclick="window.toast?.error('Something went wrong.')"
-    >
+    <button type="button" class="btn btn-error" onclick="window.toast?.error('Something went wrong.')">
         Error toast
     </button>
-
-    <button
-        type="button"
-        class="btn btn-info"
-        onclick="window.toast?.info('Here is some information.')"
-    >
+    <button type="button" class="btn btn-info" onclick="window.toast?.info('Here is some information.')">
         Info toast
     </button>
-
-    <button
-        type="button"
-        class="btn btn-warning"
-        onclick="window.toast?.warning('Please check this value.')"
-    >
+    <button type="button" class="btn btn-warning" onclick="window.toast?.warning('Please check this value.')">
         Warning toast
     </button>
 </div>
@@ -709,29 +690,49 @@ BLADE,
 BLADE,
             ], [
                 'title' => 'Toast positions',
-                'description' => 'Position flags configure where runtime notifications appear. The static alerts below make the positions easy to understand in documentation.',
+                'description' => 'Click a position to move the toast container and immediately show a real notification there.',
                 'code' => <<<'BLADE'
-<div class="grid gap-4 md:grid-cols-3">
-    <div class="alert">Top start</div>
-    <div class="alert">Top center</div>
-    <div class="alert">Top end</div>
-    <div class="alert">Middle start</div>
-    <div class="alert">Middle center</div>
-    <div class="alert">Middle end</div>
-    <div class="alert">Bottom start</div>
-    <div class="alert">Bottom center</div>
-    <div class="alert">Bottom end</div>
-</div>
+<div
+    x-data="{ position: 'top-end' }"
+    class="relative min-h-80 w-full overflow-hidden rounded-box border border-base-300 bg-base-200/40 p-4"
+>
+    <div class="grid gap-2 sm:grid-cols-3">
+        @foreach ([
+            'top-start', 'top-center', 'top-end',
+            'middle-start', 'middle-center', 'middle-end',
+            'bottom-start', 'bottom-center', 'bottom-end',
+        ] as $position)
+            <button
+                type="button"
+                class="btn btn-sm"
+                :class="{ 'btn-primary': position === '{{ $position }}' }"
+                @click="
+                    position = '{{ $position }}';
+                    window.toast?.info('{{ str($position)->headline() }}');
+                "
+            >
+                {{ str($position)->headline() }}
+            </button>
+        @endforeach
+    </div>
 
-<x-lazy-toast top start />
-<x-lazy-toast top center />
-<x-lazy-toast top end />
-<x-lazy-toast middle start />
-<x-lazy-toast middle center />
-<x-lazy-toast middle end />
-<x-lazy-toast bottom start />
-<x-lazy-toast bottom center />
-<x-lazy-toast bottom end />
+    <x-lazy-toast
+        :top="false"
+        :end="false"
+        class="absolute"
+        x-bind:class="{
+            'toast-top toast-start': position === 'top-start',
+            'toast-top toast-center': position === 'top-center',
+            'toast-top toast-end': position === 'top-end',
+            'toast-middle toast-start': position === 'middle-start',
+            'toast-middle toast-center': position === 'middle-center',
+            'toast-middle toast-end': position === 'middle-end',
+            'toast-bottom toast-start': position === 'bottom-start',
+            'toast-bottom toast-center': position === 'bottom-center',
+            'toast-bottom toast-end': position === 'bottom-end',
+        }"
+    />
+</div>
 BLADE,
             ]],
             'tooltip' => [[
