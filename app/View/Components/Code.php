@@ -12,7 +12,7 @@ class Code extends LazyComponent
         return function (array $data) {
             $attributes = $this->getAttributesFromData($data);
             $attributes['language'] ??= 'text';
-            $attributes['code'] ??= (string) $data['slot'];
+            $attributes['code'] ??= trim((string) $data['slot']);
 
             $data['attributes'] = $attributes;
 
