@@ -668,12 +668,37 @@ BLADE,
 BLADE,
             ]],
             'toast' => [[
-                'title' => 'Toast positions',
+                'title' => 'Toast container',
+                'description' => 'The Toast component is an Alpine-powered container. Notifications are inserted into it at runtime by the Lazy UI toast store.',
                 'code' => <<<'BLADE'
+<x-lazy-toast />
+
+<div class="alert alert-success shadow-lg">
+    <span>Saved successfully.</span>
+</div>
+BLADE,
+            ], [
+                'title' => 'Toast positions',
+                'description' => 'Position flags configure where runtime notifications appear. The static alerts below make the positions easy to understand in documentation.',
+                'code' => <<<'BLADE'
+<div class="grid gap-4 md:grid-cols-3">
+    <div class="alert">Top start</div>
+    <div class="alert">Top center</div>
+    <div class="alert">Top end</div>
+    <div class="alert">Middle start</div>
+    <div class="alert">Middle center</div>
+    <div class="alert">Middle end</div>
+    <div class="alert">Bottom start</div>
+    <div class="alert">Bottom center</div>
+    <div class="alert">Bottom end</div>
+</div>
+
 <x-lazy-toast top start />
 <x-lazy-toast top center />
 <x-lazy-toast top end />
+<x-lazy-toast middle start />
 <x-lazy-toast middle center />
+<x-lazy-toast middle end />
 <x-lazy-toast bottom start />
 <x-lazy-toast bottom center />
 <x-lazy-toast bottom end />
@@ -747,10 +772,20 @@ BLADE,
 BLADE,
             ]],
             'fab' => [[
-                'title' => 'FAB modes',
+                'title' => 'FAB actions',
+                'description' => 'FAB becomes useful when it contains visible actions instead of an empty floating container.',
                 'code' => <<<'BLADE'
-<x-lazy-fab label="Menu" />
-<x-lazy-fab label="Flower" flower />
+<div class="flex flex-wrap gap-8">
+    <x-lazy-fab label="Actions">
+        <button class="btn btn-circle">+</button>
+        <button class="btn btn-circle">✎</button>
+    </x-lazy-fab>
+
+    <x-lazy-fab label="Flower" flower>
+        <button class="btn btn-circle">★</button>
+        <button class="btn btn-circle">♥</button>
+    </x-lazy-fab>
+</div>
 BLADE,
             ]],
             'megamenu' => [[
@@ -1034,11 +1069,12 @@ BLADE,
             ]],
             'dock' => [[
                 'title' => 'Dock with items',
+                'description' => 'Dock is normally fixed to the bottom of the viewport. In the documentation preview it is sandboxed so all items remain visible.',
                 'code' => <<<'BLADE'
 <x-lazy-dock :items="[
-    ['label' => 'Home', 'href' => '/', 'active' => true],
-    ['label' => 'Search', 'href' => '/search'],
-    ['label' => 'Profile', 'href' => '/profile'],
+    ['label' => 'Home', 'content' => '⌂', 'active' => true],
+    ['label' => 'Search', 'content' => '⌕'],
+    ['label' => 'Profile', 'content' => '●'],
 ]" />
 BLADE,
             ]],
@@ -1046,9 +1082,9 @@ BLADE,
                 'title' => 'Dock item states',
                 'code' => <<<'BLADE'
 <x-lazy-dock>
-    <x-lazy-dock-item href="/" label="Home" active />
-    <x-lazy-dock-item href="/search" label="Search" />
-    <x-lazy-dock-item href="/profile" label="Profile" />
+    <x-lazy-dock-item label="Home" active>⌂</x-lazy-dock-item>
+    <x-lazy-dock-item label="Search">⌕</x-lazy-dock-item>
+    <x-lazy-dock-item label="Profile">●</x-lazy-dock-item>
 </x-lazy-dock>
 BLADE,
             ]],
@@ -1577,7 +1613,7 @@ BLADE,
             'indicator' => '<x-lazy-indicator'.$parts.' indicator="3"><button class="btn">'.e($label).'</button></x-lazy-indicator>',
             'tabs' => '<x-lazy-tabs'.$parts.' :items="[[\'label\' => \'Overview\', \'content\' => \'Overview content\', \'active\' => true], [\'label\' => \'Details\', \'content\' => \'Details content\']]" />',
             'menu-list' => '<x-lazy-menu-list'.$parts.'><x-lazy-menu label="'.e($label).'" href="#" /><x-lazy-menu label="Second item" href="#" /></x-lazy-menu-list>',
-            'dock' => '<x-lazy-dock'.$parts.' :items="[[\'label\' => \'Home\', \'active\' => true], [\'label\' => \'Search\'], [\'label\' => \'Profile\']]" />',
+            'dock' => '<x-lazy-dock'.$parts.' :items="[[\'label\' => \'Home\', \'content\' => \'⌂\', \'active\' => true], [\'label\' => \'Search\', \'content\' => \'⌕\'], [\'label\' => \'Profile\', \'content\' => \'●\']]" />',
             'megamenu' => '<x-lazy-megamenu'.$parts.'><div class="grid grid-cols-2 gap-3 p-4"><a class="link" href="#">'.e($label).'</a><a class="link" href="#">Docs</a><a class="link" href="#">Blog</a><a class="link" href="#">About</a></div></x-lazy-megamenu>',
             'aura' => '<x-lazy-aura'.$parts.'><div class="card w-56 bg-base-100 shadow"><div class="card-body p-5"><strong>'.e($label).'</strong><span class="text-sm opacity-70">Aura preview</span></div></div></x-lazy-aura>',
             default => '<x-lazy-'.$tag.$parts.'>'.e($label).'</x-lazy-'.$tag.'>',
