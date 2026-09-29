@@ -150,7 +150,7 @@ class ComponentPage extends Component
 
         $booleanParameters = (in_array($slug, [
             'button', 'badge', 'input', 'select', 'textarea', 'checkbox', 'radio', 'toggle',
-            'file-input', 'rating', 'range', 'otp', 'loading', 'progress', 'radial', 'link',
+            'file-input', 'loading', 'progress', 'radial', 'link',
             'status', 'skeleton',
         ], true)
             ? collect($this->parameters)->filter(fn (array $parameter): bool => str_contains($parameter['type'], 'bool'))
@@ -614,22 +614,69 @@ BLADE,
 BLADE,
             ]],
             'rating' => [[
-                'title' => 'Rating modes',
+                'title' => 'Rating styles',
+                'description' => 'Lazy UI builds the complete accessible radio markup from the selected rating type.',
                 'code' => <<<'BLADE'
-<x-lazy-rating name="rating-default" />
-<x-lazy-rating name="rating-heart" mask="heart" />
-<x-lazy-rating name="rating-half" half />
-<x-lazy-rating name="rating-clearable" clearable />
-<x-lazy-rating name="rating-readonly" :value="4" readonly />
+<div class="grid gap-4">
+    <x-lazy-rating name="rating-star-2" :value="3" type="star-2" />
+    <x-lazy-rating name="rating-star" :value="3" type="star" />
+    <x-lazy-rating name="rating-heart" :value="3" type="heart" error />
+</div>
 BLADE,
+            ], [
+                'title' => 'Clearable rating',
+                'description' => 'Clearable adds a hidden zero-value option so the current rating can be cleared.',
+                'code' => <<<'BLADE'
+<x-lazy-rating name="rating-clearable" :value="3" primary clearable />
+BLADE,
+            ], [
+                'title' => 'Half rating',
+                'description' => 'Half mode generates two selectable halves for every rating item.',
+                'code' => <<<'BLADE'
+<x-lazy-rating name="rating-half" :value="2.5" warning half clearable />
+BLADE,
+            ], [
+                'title' => 'Readonly rating',
+                'description' => 'Readonly mode renders visual rating items without radio inputs.',
+                'code' => <<<'BLADE'
+<x-lazy-rating name="rating-readonly" :value="4" success readonly />
+BLADE,
+            ], [
+                'title' => 'Custom item count',
+                'description' => 'Use items to control how many rating values are generated.',
+                'code' => <<<'BLADE'
+<x-lazy-rating name="rating-10" :items="10" :value="7" accent />
+BLADE,
+            ], [
+                'title' => 'Livewire binding',
+                'description' => 'Livewire model attributes are forwarded to every generated radio item.',
+                'code' => <<<'BLADE'
+<x-lazy-rating wire:model.live="score" name="score" :value="3" />
+BLADE,
+                'render' => false,
             ]],
             'range' => [[
-                'title' => 'Range modes',
+                'title' => 'Range values',
+                'description' => 'Set minimum, maximum, current value and an optional step.',
                 'code' => <<<'BLADE'
-<x-lazy-range min="0" max="100" value="50" />
-<x-lazy-range min="0" max="100" value="25" step="5" />
-<x-lazy-range min="0" max="100" value="70" :steps="5" />
-<x-lazy-range min="0" max="100" value="50" vertical />
+<div class="grid w-full max-w-xl gap-6">
+    <x-lazy-range :min="0" :max="100" :value="50" />
+    <x-lazy-range :min="0" :max="100" :value="25" :step="5" primary />
+</div>
+BLADE,
+            ], [
+                'title' => 'Range marks',
+                'description' => 'The steps option calculates an even step size and renders marks below the slider.',
+                'code' => <<<'BLADE'
+<x-lazy-range :min="0" :max="100" :value="50" :steps="6" secondary />
+BLADE,
+            ], [
+                'title' => 'Vertical range',
+                'description' => 'Use vertical for a vertical daisyUI range control.',
+                'code' => <<<'BLADE'
+<div class="h-64">
+    <x-lazy-range :min="0" :max="100" :value="60" vertical accent />
+</div>
 BLADE,
             ]],
             'tabs' => [[
@@ -829,13 +876,40 @@ BLADE,
 BLADE,
             ]],
             'otp' => [[
-                'title' => 'OTP modes',
+                'title' => 'OTP length',
+                'description' => 'The OTP component supports between 1 and 12 cells.',
                 'code' => <<<'BLADE'
-<x-lazy-otp name="otp" :length="6" />
-<x-lazy-otp name="otp-joined" :length="6" joined />
-<x-lazy-otp name="otp-text" :length="6" :numeric="false" />
-<x-lazy-otp name="otp-readonly" value="123456" readonly />
+<div class="grid gap-4">
+    <x-lazy-otp name="otp-4" :length="4" value="1234" />
+    <x-lazy-otp name="otp-6" :length="6" value="123456" />
+    <x-lazy-otp name="otp-8" :length="8" value="12345678" />
+</div>
 BLADE,
+            ], [
+                'title' => 'Joined OTP',
+                'description' => 'Use joined to visually connect the OTP cells.',
+                'code' => <<<'BLADE'
+<x-lazy-otp name="otp-joined" :length="6" value="123456" joined />
+BLADE,
+            ], [
+                'title' => 'Text OTP',
+                'description' => 'Disable numeric mode when the code may contain letters.',
+                'code' => <<<'BLADE'
+<x-lazy-otp name="otp-text" :length="6" value="A1B2C3" :numeric="false" />
+BLADE,
+            ], [
+                'title' => 'Readonly OTP',
+                'description' => 'Readonly mode keeps the generated OTP presentation without allowing edits.',
+                'code' => <<<'BLADE'
+<x-lazy-otp name="otp-readonly" :length="6" value="123456" readonly />
+BLADE,
+            ], [
+                'title' => 'Livewire binding',
+                'description' => 'The component forwards Livewire model attributes to its internal input.',
+                'code' => <<<'BLADE'
+<x-lazy-otp wire:model.live="code" :length="6" />
+BLADE,
+                'render' => false,
             ]],
             'pagination' => [[
                 'title' => 'Pagination modes',
@@ -1350,14 +1424,31 @@ BLADE,
 BLADE,
             ]],
             'radio' => [[
-                'title' => 'Radio states',
+                'title' => 'Radio group',
+                'description' => 'Radio is intentionally a primitive input. Use normal HTML labels when you need visible text.',
                 'code' => <<<'BLADE'
-<div class="flex gap-4">
-    <x-lazy-radio name="plan" value="free" checked />
-    <x-lazy-radio name="plan" value="pro" primary />
-    <x-lazy-radio name="plan" value="team" disabled />
+<div class="grid gap-3">
+    <label class="flex items-center gap-3">
+        <x-lazy-radio name="plan" value="free" checked />
+        <span>Free</span>
+    </label>
+    <label class="flex items-center gap-3">
+        <x-lazy-radio name="plan" value="pro" primary />
+        <span>Pro</span>
+    </label>
+    <label class="flex items-center gap-3 opacity-60">
+        <x-lazy-radio name="plan" value="team" disabled />
+        <span>Team (disabled)</span>
+    </label>
 </div>
 BLADE,
+            ], [
+                'title' => 'Livewire binding',
+                'description' => 'Standard wire:model attributes are forwarded directly to the radio input.',
+                'code' => <<<'BLADE'
+<x-lazy-radio wire:model="plan" value="pro" primary />
+BLADE,
+                'render' => false,
             ]],
             'richtext' => [[
                 'title' => 'Rich text editor',
