@@ -668,14 +668,44 @@ BLADE,
 BLADE,
             ]],
             'toast' => [[
-                'title' => 'Toast container',
-                'description' => 'The Toast component is an Alpine-powered container. Notifications are inserted into it at runtime by the Lazy UI toast store.',
+                'title' => 'Interactive toast',
+                'description' => 'Click a button to create a real Lazy UI toast through the global toast API.',
                 'code' => <<<'BLADE'
-<x-lazy-toast />
+<div class="flex flex-wrap gap-2">
+    <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.toast?.success('Saved successfully.')"
+    >
+        Success toast
+    </button>
 
-<div class="alert alert-success shadow-lg">
-    <span>Saved successfully.</span>
+    <button
+        type="button"
+        class="btn btn-error"
+        onclick="window.toast?.error('Something went wrong.')"
+    >
+        Error toast
+    </button>
+
+    <button
+        type="button"
+        class="btn btn-info"
+        onclick="window.toast?.info('Here is some information.')"
+    >
+        Info toast
+    </button>
+
+    <button
+        type="button"
+        class="btn btn-warning"
+        onclick="window.toast?.warning('Please check this value.')"
+    >
+        Warning toast
+    </button>
 </div>
+
+<x-lazy-toast />
 BLADE,
             ], [
                 'title' => 'Toast positions',
