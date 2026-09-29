@@ -148,13 +148,13 @@ class ComponentPage extends Component
     {
         $examples = [];
 
-        $booleanParameters = in_array($slug, [
+        $booleanParameters = (in_array($slug, [
             'button', 'badge', 'input', 'select', 'textarea', 'checkbox', 'radio', 'toggle',
             'file-input', 'rating', 'range', 'otp', 'loading', 'progress', 'radial', 'link',
             'status', 'skeleton',
         ], true)
             ? collect($this->parameters)->filter(fn (array $parameter): bool => str_contains($parameter['type'], 'bool'))
-            : collect()
+            : collect())
             ->pluck('name')
             ->reject(fn (string $name): bool => in_array($name, [
                 'vertical', 'horizontal', 'top', 'middle', 'bottom', 'start', 'center', 'end', 'left', 'right',
@@ -1554,12 +1554,34 @@ BLADE,
             ->implode(' ');
 
         $parts = $parts !== '' ? ' '.$parts : '';
+        $label ??= 'Example';
 
-        if ($label !== null && collect($this->parameters)->pluck('name')->contains('label')) {
-            return '<x-lazy-'.$tag.$parts.' label="'.e($label).'" />';
-        }
-
-        return '<x-lazy-'.$tag.$parts.' />';
+        return match ($tag) {
+            'btn' => '<x-lazy-btn'.$parts.'>'.e($label).'</x-lazy-btn>',
+            'badge' => '<x-lazy-badge'.$parts.'>'.e($label).'</x-lazy-badge>',
+            'loading' => '<span class="inline-flex items-center gap-2"><x-lazy-loading'.$parts.' /><span>'.e($label).'</span></span>',
+            'kbd' => '<span class="inline-flex items-center gap-2"><x-lazy-kbd'.$parts.' value="'.e($label).'" /><span>'.e($label).'</span></span>',
+            'checkbox' => '<label class="inline-flex items-center gap-2"><x-lazy-checkbox'.$parts.' name="checkbox-'.str($label)->slug().'" /><span>'.e($label).'</span></label>',
+            'radio' => '<label class="inline-flex items-center gap-2"><x-lazy-radio'.$parts.' name="radio-example" value="'.str($label)->slug().'" /><span>'.e($label).'</span></label>',
+            'toggle' => '<label class="inline-flex items-center gap-2"><x-lazy-toggle'.$parts.' name="toggle-'.str($label)->slug().'" /><span>'.e($label).'</span></label>',
+            'status' => '<span class="inline-flex items-center gap-2"><x-lazy-status'.$parts.' /><span>'.e($label).'</span></span>',
+            'file-input' => '<label class="grid min-w-64 gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-file-input'.$parts.' name="file-'.str($label)->slug().'" /></label>',
+            'otp' => '<label class="grid gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-otp'.$parts.' name="otp-'.str($label)->slug().'" value="123456" /></label>',
+            'range' => '<label class="grid w-64 gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-range'.$parts.' min="0" max="100" value="55" /></label>',
+            'rating' => '<div class="inline-flex items-center gap-3"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-rating'.$parts.' name="rating-'.str($label)->slug().'" :value="3" /></div>',
+            'select' => '<label class="grid min-w-56 gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-select'.$parts.' name="select-'.str($label)->slug().'" :options="[\'one\' => \'Option one\', \'two\' => \'Option two\']" /></label>',
+            'textarea' => '<label class="grid min-w-64 gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-textarea'.$parts.' name="textarea-'.str($label)->slug().'" placeholder="'.e($label).'" /></label>',
+            'input' => '<label class="grid min-w-56 gap-2"><span class="text-sm font-medium">'.e($label).'</span><x-lazy-input'.$parts.' name="input-'.str($label)->slug().'" placeholder="'.e($label).'" /></label>',
+            'link' => '<x-lazy-link'.$parts.' href="#">'.e($label).'</x-lazy-link>',
+            'step' => '<x-lazy-steps><x-lazy-step'.$parts.'>'.e($label).'</x-lazy-step><x-lazy-step>Next</x-lazy-step></x-lazy-steps>',
+            'indicator' => '<x-lazy-indicator'.$parts.' indicator="3"><button class="btn">'.e($label).'</button></x-lazy-indicator>',
+            'tabs' => '<x-lazy-tabs'.$parts.' :items="[[\'label\' => \'Overview\', \'content\' => \'Overview content\', \'active\' => true], [\'label\' => \'Details\', \'content\' => \'Details content\']]" />',
+            'menu-list' => '<x-lazy-menu-list'.$parts.'><x-lazy-menu label="'.e($label).'" href="#" /><x-lazy-menu label="Second item" href="#" /></x-lazy-menu-list>',
+            'dock' => '<x-lazy-dock'.$parts.' :items="[[\'label\' => \'Home\', \'active\' => true], [\'label\' => \'Search\'], [\'label\' => \'Profile\']]" />',
+            'megamenu' => '<x-lazy-megamenu'.$parts.'><div class="grid grid-cols-2 gap-3 p-4"><a class="link" href="#">'.e($label).'</a><a class="link" href="#">Docs</a><a class="link" href="#">Blog</a><a class="link" href="#">About</a></div></x-lazy-megamenu>',
+            'aura' => '<x-lazy-aura'.$parts.'><div class="card w-56 bg-base-100 shadow"><div class="card-body p-5"><strong>'.e($label).'</strong><span class="text-sm opacity-70">Aura preview</span></div></div></x-lazy-aura>',
+            default => '<x-lazy-'.$tag.$parts.'>'.e($label).'</x-lazy-'.$tag.'>',
+        };
     }
 
     private function resolveComponentClass(string $tag): ?string
