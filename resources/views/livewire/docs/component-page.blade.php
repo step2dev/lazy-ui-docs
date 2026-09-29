@@ -9,8 +9,7 @@
         <p class="mt-4 max-w-3xl text-lg opacity-70">{{ $docComponent['description'] }}</p>
     </div>
 
-    <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
-        <div class="min-w-0">
+    <div class="min-w-0">
             <x-code-preview
                 title="Basic example"
                 :description="$docComponent['description']"
@@ -62,20 +61,5 @@
                 <code>wire:click</code> and <code>wire:loading</code>.
             </p>
 
-        </div>
-
-        <aside class="h-fit self-start rounded-box border border-base-300 bg-base-200/40 p-5">
-            <h3 class="mt-0 text-base">Reference</h3>
-
-            @if($componentClass)
-                <div class="mb-4 break-all text-xs opacity-60">{{ $componentClass }}</div>
-            @endif
-
-            <div class="flex flex-col gap-2">
-                <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/src/Components" target="_blank" rel="noopener">PHP components</a>
-                <a class="link link-primary" href="https://github.com/step2dev/lazy-ui/tree/2.x-dev/resources/views" target="_blank" rel="noopener">Blade views</a>
-                <a class="link link-primary" href="https://daisyui.com/components/" target="_blank" rel="noopener">daisyUI components</a>
-            </div>
-        </aside>
     </div>
 </article>
