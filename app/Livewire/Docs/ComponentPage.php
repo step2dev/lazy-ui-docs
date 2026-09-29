@@ -83,19 +83,6 @@ class ComponentPage extends Component
             ];
         }
 
-        $layoutFlags = $parameterNames
-            ->intersect(['vertical', 'horizontal', 'top', 'middle', 'bottom', 'start', 'center', 'end', 'left', 'right'])
-            ->values();
-
-        if ($layoutFlags->isNotEmpty()) {
-            $examples[] = [
-                'title' => 'Positions and layout',
-                'code' => $layoutFlags
-                    ->map(fn (string $flag): string => $this->exampleTag($tag, [$flag => true], ucfirst($flag)))
-                    ->implode("\n"),
-            ];
-        }
-
         foreach ($this->exhaustiveCommonExamples($slug, $tag, $parameterNames) as $example) {
             $examples[] = $example;
         }
@@ -161,23 +148,13 @@ class ComponentPage extends Component
     {
         $examples = [];
 
-        $enumOptions = $this->enumOptions($slug);
-
-        foreach ($enumOptions as $parameter => $values) {
-            $examples[] = [
-                'title' => str($parameter)->headline().' values',
-                'code' => collect($values)
-                    ->map(fn (string|int|float $value): string => $this->exampleTag(
-                        $tag,
-                        [$parameter => $value],
-                        ucfirst(str_replace(['-', '_'], ' ', (string) $value))
-                    ))
-                    ->implode("\n"),
-            ];
-        }
-
-        $booleanParameters = collect($this->parameters)
-            ->filter(fn (array $parameter): bool => str_contains($parameter['type'], 'bool'))
+        $booleanParameters = in_array($slug, [
+            'button', 'badge', 'input', 'select', 'textarea', 'checkbox', 'radio', 'toggle',
+            'file-input', 'rating', 'range', 'otp', 'loading', 'progress', 'radial', 'link',
+            'status', 'skeleton',
+        ], true)
+            ? collect($this->parameters)->filter(fn (array $parameter): bool => str_contains($parameter['type'], 'bool'))
+            : collect()
             ->pluck('name')
             ->reject(fn (string $name): bool => in_array($name, [
                 'vertical', 'horizontal', 'top', 'middle', 'bottom', 'start', 'center', 'end', 'left', 'right',
@@ -425,13 +402,20 @@ BLADE,
 BLADE,
             ]],
             'calendar' => [[
-                'title' => 'Calendar drivers',
+                'title' => 'Native calendar',
+                'description' => 'The native driver works without additional JavaScript dependencies.',
                 'code' => <<<'BLADE'
-<x-lazy-calendar driver="native" />
-<x-lazy-calendar driver="cally" />
-<x-lazy-calendar driver="vc" />
-<x-lazy-calendar driver="react-day-picker" />
+<x-lazy-calendar driver="native" value="2026-09-29" />
 BLADE,
+            ], [
+                'title' => 'Alternative calendar drivers',
+                'description' => 'Cally, Vanilla Calendar and React Day Picker are integration targets. Their JavaScript library must also be installed by the application.',
+                'code' => <<<'BLADE'
+<x-lazy-calendar driver="cally" />
+<x-lazy-calendar driver="vc">Vanilla Calendar mount point</x-lazy-calendar>
+<x-lazy-calendar driver="react-day-picker">React Day Picker mount point</x-lazy-calendar>
+BLADE,
+                'render' => false,
             ]],
             'chat' => [[
                 'title' => 'Chat positions',
@@ -479,23 +463,39 @@ BLADE,
             ]],
             'indicator' => [[
                 'title' => 'Indicator positions',
+                'description' => 'The badge can be placed on all nine horizontal and vertical position combinations.',
                 'code' => <<<'BLADE'
-<x-lazy-indicator indicator="1" horizontal="start" vertical="top"><button class="btn">Start top</button></x-lazy-indicator>
-<x-lazy-indicator indicator="2" horizontal="center" vertical="middle"><button class="btn">Center middle</button></x-lazy-indicator>
-<x-lazy-indicator indicator="3" horizontal="end" vertical="bottom"><button class="btn">End bottom</button></x-lazy-indicator>
+<div class="grid gap-8 sm:grid-cols-3">
+    @foreach (['start', 'center', 'end'] as $horizontal)
+        @foreach (['top', 'middle', 'bottom'] as $vertical)
+            <div class="flex justify-center">
+                <x-lazy-indicator indicator="1" :horizontal="$horizontal" :vertical="$vertical">
+                    <button class="btn w-36">{{ $horizontal }} / {{ $vertical }}</button>
+                </x-lazy-indicator>
+            </div>
+        @endforeach
+    @endforeach
+</div>
 BLADE,
             ]],
             'join' => [[
-                'title' => 'Join directions',
+                'title' => 'Horizontal join',
+                'description' => 'Join adjacent controls into one horizontal control group.',
                 'code' => <<<'BLADE'
 <x-lazy-join horizontal>
-    <x-lazy-btn>One</x-lazy-btn>
-    <x-lazy-btn>Two</x-lazy-btn>
+    <x-lazy-btn join>Previous</x-lazy-btn>
+    <x-lazy-btn join primary>Current</x-lazy-btn>
+    <x-lazy-btn join>Next</x-lazy-btn>
 </x-lazy-join>
-
+BLADE,
+            ], [
+                'title' => 'Vertical join',
+                'description' => 'Use a vertical join when related controls should be stacked.',
+                'code' => <<<'BLADE'
 <x-lazy-join vertical>
-    <x-lazy-btn>One</x-lazy-btn>
-    <x-lazy-btn>Two</x-lazy-btn>
+    <x-lazy-btn join>Profile</x-lazy-btn>
+    <x-lazy-btn join>Settings</x-lazy-btn>
+    <x-lazy-btn join error>Delete</x-lazy-btn>
 </x-lazy-join>
 BLADE,
             ]],
@@ -543,23 +543,54 @@ BLADE,
 BLADE,
             ]],
             'dropdown' => [[
-                'title' => 'Dropdown modes',
+                'title' => 'Dropdown behavior',
+                'description' => 'Click, hover and forced-open dropdowns use the same menu so the behavior is easy to compare.',
                 'code' => <<<'BLADE'
-<x-lazy-dropdown label="Click" />
-<x-lazy-dropdown label="Hover" hover />
-<x-lazy-dropdown label="Open" open />
-<x-lazy-dropdown label="Top" top />
-<x-lazy-dropdown label="Bottom end" bottom end />
+<div class="flex flex-wrap gap-4">
+    <x-lazy-dropdown label="Click">
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+    </x-lazy-dropdown>
+
+    <x-lazy-dropdown label="Hover" hover>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+    </x-lazy-dropdown>
+
+    <x-lazy-dropdown label="Always open" open>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+    </x-lazy-dropdown>
+</div>
+BLADE,
+            ], [
+                'title' => 'Dropdown alignment',
+                'description' => 'Start, center and end align the dropdown content relative to its trigger.',
+                'code' => <<<'BLADE'
+<div class="grid gap-24 md:grid-cols-3">
+    <x-lazy-dropdown label="Start" position="start" open>
+        <a href="#">First item</a>
+        <a href="#">Second item</a>
+    </x-lazy-dropdown>
+    <x-lazy-dropdown label="Center" position="center" open>
+        <a href="#">First item</a>
+        <a href="#">Second item</a>
+    </x-lazy-dropdown>
+    <x-lazy-dropdown label="End" position="end" open>
+        <a href="#">First item</a>
+        <a href="#">Second item</a>
+    </x-lazy-dropdown>
+</div>
 BLADE,
             ]],
             'modal' => [[
                 'title' => 'Modal positions',
                 'code' => <<<'BLADE'
-<x-lazy-modal id="modal-top" top>Top modal</x-lazy-modal>
-<x-lazy-modal id="modal-middle" middle>Middle modal</x-lazy-modal>
-<x-lazy-modal id="modal-bottom" bottom>Bottom modal</x-lazy-modal>
-<x-lazy-modal id="modal-start" start>Start modal</x-lazy-modal>
-<x-lazy-modal id="modal-end" end>End modal</x-lazy-modal>
+<x-lazy-modal id="modal-top" top open>Top modal</x-lazy-modal>
+<x-lazy-modal id="modal-middle" middle open>Middle modal</x-lazy-modal>
+<x-lazy-modal id="modal-bottom" bottom open>Bottom modal</x-lazy-modal>
+<x-lazy-modal id="modal-start" start open>Start modal</x-lazy-modal>
+<x-lazy-modal id="modal-end" end open>End modal</x-lazy-modal>
 BLADE,
             ]],
             'mask' => [[
@@ -661,10 +692,20 @@ BLADE,
 BLADE,
             ]],
             'theme-controller' => [[
-                'title' => 'Controller types',
+                'title' => 'Theme controller inputs',
+                'description' => 'ThemeController is an input. Add a visible daisyUI control class and label so users understand the interaction.',
                 'code' => <<<'BLADE'
-<x-lazy-theme-controller theme="light" type="checkbox" />
-<x-lazy-theme-controller theme="dark" type="radio" />
+<div class="flex flex-wrap items-center gap-6">
+    <label class="flex items-center gap-3">
+        <span>Dark theme</span>
+        <x-lazy-theme-controller theme="dark" type="checkbox" class="toggle" />
+    </label>
+
+    <label class="flex items-center gap-3">
+        <span>Light theme</span>
+        <x-lazy-theme-controller theme="light" type="radio" name="theme" class="radio" />
+    </label>
+</div>
 BLADE,
             ]],
             'carousel' => [[
