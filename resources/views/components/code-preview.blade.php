@@ -23,7 +23,7 @@
 
     @if($preview !== null)
         <div class="rounded-t-box border border-base-300 bg-base-100">
-            <div class="flex min-h-40 flex-wrap items-center justify-center gap-4 overflow-x-auto p-6 sm:p-8">
+            <div class="docs-preview flex min-h-40 flex-wrap items-center justify-center gap-4 overflow-x-auto p-6 sm:p-8">
                 {!! $preview !!}
             </div>
         </div>
