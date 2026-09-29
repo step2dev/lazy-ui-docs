@@ -11,24 +11,20 @@
 
     <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div class="min-w-0">
-            <h2>Example</h2>
-
             <x-code-preview
-                :title="$docComponent['name'].' example'"
+                title="Basic example"
+                :description="$docComponent['description']"
                 :code="$docComponent['example']"
             />
 
-            @if($examples !== [])
-                <h2>Variants</h2>
-
-                @foreach($examples as $example)
-                    <x-code-preview
-                        :title="$example['title']"
-                        :code="$example['code']"
-                        :render="$example['render'] ?? true"
-                    />
-                @endforeach
-            @endif
+            @foreach($examples as $example)
+                <x-code-preview
+                    :title="$example['title']"
+                    :description="$example['description'] ?? ''"
+                    :code="$example['code']"
+                    :render="$example['render'] ?? true"
+                />
+            @endforeach
 
             <h2>Properties</h2>
 
