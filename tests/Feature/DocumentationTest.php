@@ -41,7 +41,7 @@ class DocumentationTest extends TestCase
             foreach ($components as $slug => $component) {
                 $this->get('/docs/components/'.$slug)
                     ->assertOk()
-                    ->assertSee('Variants')
+                    ->assertSee('Basic example')
                     ->assertSee($component['name']);
             }
         }
