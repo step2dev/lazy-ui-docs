@@ -104,7 +104,31 @@ class ComponentPage extends Component
             $examples[] = $example;
         }
 
-        return $examples;
+        return collect($examples)
+            ->map(function (array $example): array {
+                $example['description'] ??= $this->exampleDescription($example['title'] ?? 'Example');
+
+                return $example;
+            })
+            ->all();
+    }
+
+    private function exampleDescription(string $title): string
+    {
+        $normalized = str($title)->lower()->toString();
+
+        return match (true) {
+            str_contains($normalized, 'size') => 'Available size variants for this component.',
+            str_contains($normalized, 'color') => 'Available semantic color variants.',
+            str_contains($normalized, 'position') || str_contains($normalized, 'align') => 'Available positioning and alignment options.',
+            str_contains($normalized, 'type') => 'Available component type variants.',
+            str_contains($normalized, 'shape') || str_contains($normalized, 'mask') => 'Available visual shape variants.',
+            str_contains($normalized, 'driver') => 'Available rendering or integration drivers.',
+            str_contains($normalized, 'boolean') || str_contains($normalized, 'modifier') => 'Optional boolean modifiers supported by the component.',
+            str_contains($normalized, 'state') => 'Common interactive and disabled states.',
+            str_contains($normalized, 'layout') => 'Available layout variants.',
+            default => 'Example usage with Lazy UI Blade syntax.',
+        };
     }
 
     private function supportedColors(string $slug): array
@@ -1429,120 +1453,7 @@ BLADE,
                 'title' => 'Code mockup lines',
                 'code' => <<<'BLADE'
 <x-lazy-mockup-code :lines="[
-    ['prefix' => '
-
-    private function exampleTag(string $tag, array $attributes = [], ?string $label = null): string
-    {
-        $parts = collect($attributes)
-            ->map(function (mixed $value, string $key): string {
-                if ($value === true) {
-                    return $key;
-                }
-
-                if ($value === false || $value === null) {
-                    return '';
-                }
-
-                return $key.'="'.e((string) $value).'"';
-            })
-            ->filter()
-            ->implode(' ');
-
-        $parts = $parts !== '' ? ' '.$parts : '';
-        $label = $label ?? 'Example';
-        $parameters = collect($this->parameters)->pluck('name');
-
-        if ($parameters->contains('label')) {
-            return '<x-lazy-'.$tag.$parts.' label="'.e($label).'" />';
-        }
-
-        return match ($tag) {
-            'kbd' => '<x-lazy-kbd'.$parts.' value="'.e($label).'" />',
-            'radio' => '<label class="inline-flex items-center gap-2"><x-lazy-radio'.$parts.' name="example-radio" /><span>'.e($label).'</span></label>',
-            'toggle' => '<label class="inline-flex items-center gap-2"><x-lazy-toggle'.$parts.' /><span>'.e($label).'</span></label>',
-            'status' => '<span class="inline-flex items-center gap-2"><x-lazy-status'.$parts.' /><span>'.e($label).'</span></span>',
-            'loading' => '<span class="inline-flex items-center gap-2"><x-lazy-loading'.$parts.' /><span>'.e($label).'</span></span>',
-            'range' => '<label class="grid w-64 gap-2"><span>'.e($label).'</span><x-lazy-range'.$parts.' value="50" /></label>',
-            'rating' => '<div class="inline-flex items-center gap-3"><span>'.e($label).'</span><x-lazy-rating'.$parts.' name="rating-'.str($label)->slug().'" /></div>',
-            'input' => '<x-lazy-input'.$parts.' placeholder="'.e($label).'" aria-label="'.e($label).'" />',
-            'select' => '<x-lazy-select'.$parts.' placeholder="'.e($label).'" :options="[\'a\' => \'Option A\', \'b\' => \'Option B\']" />',
-            'textarea' => '<x-lazy-textarea'.$parts.' placeholder="'.e($label).'" aria-label="'.e($label).'" />',
-            'file-input' => '<label class="grid gap-2"><span>'.e($label).'</span><x-lazy-file-input'.$parts.' /></label>',
-            'dock' => '<x-lazy-dock'.$parts.' :items="[[\'label\' => \'Home\', \'active\' => true], [\'label\' => \'Search\']]" />',
-            'menu-list' => '<x-lazy-menu-list'.$parts.'><x-lazy-menu label="'.e($label).'" href="#" /><x-lazy-menu label="Second" href="#" /></x-lazy-menu-list>',
-            'megamenu' => '<x-lazy-megamenu'.$parts.'><span>'.e($label).'</span></x-lazy-megamenu>',
-            'tabs' => '<x-lazy-tabs'.$parts.' :items="[[\'label\' => \'One\', \'active\' => true], [\'label\' => \'Two\']]" />',
-            'indicator' => '<x-lazy-indicator'.$parts.' indicator="1"><button class="btn">'.e($label).'</button></x-lazy-indicator>',
-            default => '<x-lazy-'.$tag.$parts.'>'.e($label).'</x-lazy-'.$tag.'>',
-        };
-    }
-
-    private function resolveComponentClass(string $tag): ?string
-    {
-        $aliases = Blade::getClassComponentAliases();
-
-        return $aliases['lazy-'.$tag] ?? null;
-    }
-
-    private function resolveParameters(?string $class): array
-    {
-        if ($class === null || ! class_exists($class)) {
-            return [];
-        }
-
-        $constructor = (new ReflectionClass($class))->getConstructor();
-
-        if ($constructor === null) {
-            return [];
-        }
-
-        return collect($constructor->getParameters())
-            ->map(fn (ReflectionParameter $parameter): array => [
-                'name' => $parameter->getName(),
-                'type' => $this->formatType($parameter),
-                'required' => ! $parameter->isOptional(),
-                'default' => $this->formatDefault($parameter),
-            ])
-            ->values()
-            ->all();
-    }
-
-    private function formatType(ReflectionParameter $parameter): string
-    {
-        $type = $parameter->getType();
-
-        if ($type instanceof ReflectionNamedType) {
-            return ($type->allowsNull() && $type->getName() !== 'mixed' ? '?' : '').$type->getName();
-        }
-
-        if ($type instanceof ReflectionUnionType) {
-            return collect($type->getTypes())
-                ->map(fn (ReflectionNamedType $type): string => $type->getName())
-                ->implode('|');
-        }
-
-        return 'mixed';
-    }
-
-    private function formatDefault(ReflectionParameter $parameter): string
-    {
-        if (! $parameter->isDefaultValueAvailable()) {
-            return '—';
-        }
-
-        $value = $parameter->getDefaultValue();
-
-        return match (true) {
-            $value === null => 'null',
-            $value === true => 'true',
-            $value === false => 'false',
-            is_string($value) => "'".$value."'",
-            is_array($value) => $value === [] ? '[]' : json_encode($value, JSON_UNESCAPED_SLASHES),
-            default => (string) $value,
-        };
-    }
-}
-, 'code' => 'composer install'],
+    ['prefix' => '$', 'code' => 'composer install'],
     ['prefix' => '>', 'code' => 'Installing dependencies...', 'class' => 'text-warning'],
     ['prefix' => '✓', 'code' => 'Done', 'class' => 'text-success'],
 ]" />
